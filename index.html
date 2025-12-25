@@ -3,74 +3,120 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wanna Be Yours</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;700&family=Playfair+Display:ital,wght@1,400&display=swap" rel="stylesheet">
+    <title>For My Cutie ❤️</title>
+    <!-- Premium Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@300;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- Start Overlay -->
-    <div id="overlay">
-        <div class="content">
-            <h1>Hey Cutie ❤️</h1>
-            <p>Put on your headphones & tap below</p>
-            <button id="start-btn">Play Song 🎵</button>
+    <!-- 1. Entry Screen (Pehli Screen) -->
+    <div id="start-overlay">
+        <div class="center-box">
+            <h1>Hey Beautiful...</h1>
+            <p>Ready to step into 2025?</p>
+            <p class="sub-text">(Put on your headphones 🎧)</p>
+            <button id="play-btn">Tap to Start ❤️</button>
         </div>
     </div>
 
-    <audio id="music">
+    <!-- 2. Background Animation -->
+    <div class="bg-animation">
+        <div id="stars"></div>
+        <div id="stars2"></div>
+    </div>
+
+    <!-- 3. Music Player -->
+    <audio id="audio-player">
         <source src="song.mp3" type="audio/mpeg">
     </audio>
 
-    <div class="stars"></div>
-    <div class="twinkling"></div>
-
-    <div class="container">
+    <!-- 4. Main Content -->
+    <div class="main-container" id="main-site">
         
-        <!-- Intro -->
-        <section class="full-screen center">
-            <h1>Happy New Year<br><span class="highlight">My Love</span></h1>
-            <p>Listen carefully...</p>
+        <!-- Section A: Intro -->
+        <section class="intro-section">
+            <h1 class="fade-in">Happy New Year<br><span>My Love</span></h1>
+            <p class="fade-in delay">Scroll down slowly...</p>
         </section>
 
-        <!-- SYNCED LYRICS SECTION -->
-        <section class="lyrics-wrapper">
-            <!-- data-time="0" matlab 0 seconds pe ye line aayegi -->
-            <p class="lyric-line" data-time="0">"I wanna be your vacuum cleaner..."</p>
-            
-            <!-- data-time="4" matlab 4 seconds pe ye line aayegi -->
-            <p class="lyric-line" data-time="4">"Breathing in your dust..."</p>
-            
-            <p class="lyric-line" data-time="8">"I wanna be your Ford Cortina..."</p>
-            
-            <p class="lyric-line" data-time="12">"I will never rust..."</p>
-            
-            <p class="lyric-line highlight-text" data-time="15">"I just wanna be yours..."</p>
-            
-            <p class="lyric-line" data-time="20">(I love you so much ❤️)</p>
-        </section>
-
-        <!-- Photos -->
-        <section class="gallery">
-            <h2>Our Memories 📸</h2>
-            <div class="cards-wrapper">
-                <div class="card"><img src="pic1.jpg" alt="Us"></div>
-                <div class="card"><img src="pic2.jpg" alt="Us"></div>
-                <div class="card"><img src="pic3.jpg" alt="Us"></div>
+        <!-- Section B: Photo Gallery (Floating Cards) -->
+        <section class="gallery-section">
+            <h2 class="section-title">Why You Are Special ✨</h2>
+            <div class="photo-grid">
+                <!-- Photo 1 -->
+                <div class="photo-card tilt-left">
+                    <div class="img-box">
+                        <!-- Yahan photo ka naam daalna baad me -->
+                        <img src="https://via.placeholder.com/300x400/ff4d6d/ffffff?text=YOU" alt="You">
+                    </div>
+                    <p>My Favorite Person</p>
+                </div>
+                <!-- Photo 2 -->
+                <div class="photo-card tilt-right">
+                    <div class="img-box">
+                        <img src="https://via.placeholder.com/300x400/ff4d6d/ffffff?text=ARE" alt="Are">
+                    </div>
+                    <p>My Happiness</p>
+                </div>
+                <!-- Photo 3 -->
+                <div class="photo-card tilt-left">
+                    <div class="img-box">
+                        <img src="https://via.placeholder.com/300x400/ff4d6d/ffffff?text=SO" alt="So">
+                    </div>
+                    <p>My Safe Place</p>
+                </div>
+                <!-- Photo 4 -->
+                <div class="photo-card tilt-right">
+                    <div class="img-box">
+                        <img src="https://via.placeholder.com/300x400/ff4d6d/ffffff?text=PRETTY" alt="Pretty">
+                    </div>
+                    <p>My Everything</p>
+                </div>
             </div>
         </section>
 
-        <!-- Message -->
-        <section class="full-screen center">
-            <div class="message-box">
-                <h2>Ready for 2025?</h2>
-                <p>Happy New Year Baby! 🎆</p>
+        <!-- Section C: Synced Lyrics (Heart of the site) -->
+        <!-- IMPORTANT: data-time="X" means X seconds pe ye line glow karegi -->
+        <section class="lyrics-container">
+            <div class="sticky-lyrics">
+                
+                <p class="lyric-line" data-time="0">"I wanna be your vacuum cleaner..."</p>
+                
+                <p class="lyric-line" data-time="4">"Breathing in your dust..."</p>
+                
+                <p class="lyric-line" data-time="8">"I wanna be your Ford Cortina..."</p>
+                
+                <p class="lyric-line" data-time="12">"I will never rust..."</p>
+                
+                <p class="lyric-line highlight" data-time="15">"I just wanna be yours..."</p>
+                
+                <p class="lyric-line" data-time="19">"You are the best thing..."</p>
+                
+                <p class="lyric-line" data-time="22">"...that happened to me in 2024"</p>
+                
+                <p class="lyric-line" data-time="26">"And I want you in 2025, 2026..."</p>
+                
+                <p class="lyric-line" data-time="30">"...and Forever. ❤️"</p>
+
             </div>
+        </section>
+
+        <!-- Section D: Final Wish -->
+        <section class="outro-section">
+            <div class="glass-card">
+                <h2>Before the clock strikes 12...</h2>
+                <p>Thank you for handling my mood swings, loving me, and being my cutie.</p>
+                <p>Tera haath pakad ke naye saal mein enter karna hai.</p>
+                <h1 class="neon-glow">Happy 2025! 🎆</h1>
+            </div>
+            <br><br><br>
         </section>
 
     </div>
 
+    <!-- Confetti Script -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <script src="script.js"></script>
 </body>
-</html>
+    </html>
