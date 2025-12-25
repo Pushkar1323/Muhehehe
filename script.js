@@ -1,91 +1,87 @@
-let currentPage = 1;
-const totalPages = 8;
-let musicPlaying = false;
-
-// ========== PRELOADER ==========
-window.addEventListener('load', () => {
-    setTimeout(() => {
-        document.getElementById('preloader').classList.add('hidden');
-        createFloatingHearts();
-        createStars('stars1');
-        createShootingStars();
+// ========== LOADING FIX - SABSE PEHLE ========== 
+// Yeh line sabse important hai - loading stuck nahi hogi
+(function() {
+    // Maximum 3 second wait, fir force hide
+    setTimeout(function() {
+        hidePreloader();
     }, 3000);
-});
-
-// ========== CURSOR TRAIL ==========
-document.addEventListener('mousemove', (e) => {
-    const trail = document.getElementById('cursorTrail');
-    if (trail) {
-        trail.style.left = e.clientX - 10 + 'px';
-        trail.style.top = e.clientY - 10 + 'px';
+    
+    // Jab DOM ready ho tab bhi try karo
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(hidePreloader, 2000);
+        });
+    } else {
+        setTimeout(hidePreloader, 2000);
     }
-});
+})();
+
+function hidePreloader() {
+    var preloader = document.getElementById('preloader');
+    if (preloader && !preloader.classList.contains('hidden')) {
+        preloader.classList.add('hidden');
+        initPage();
+    }
+}
+
+function initPage() {
+    createFloatingHearts();
+    createStars('stars1');
+}
+
+// ========== VARIABLES ==========
+var currentPage = 1;
+var totalPages = 8;
+var musicPlaying = false;
 
 // ========== FLOATING HEARTS ==========
 function createFloatingHearts() {
-    const container = document.getElementById('heartsBg');
+    var container = document.getElementById('heartsBg');
     if (!container) return;
     
-    const hearts = ['💕', '💖', '💗', '💓', '💝', '❤️', '🥰', '😘', '💘', '💞'];
+    var hearts = ['💕', '💖', '💗', '💓', '💝', '❤️', '🥰', '😘', '💘'];
     
-    for (let i = 0; i < 30; i++) {
-        const heart = document.createElement('span');
+    for (var i = 0; i < 25; i++) {
+        var heart = document.createElement('span');
         heart.className = 'floating-heart';
         heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
         heart.style.left = Math.random() * 100 + '%';
-        heart.style.fontSize = (Math.random() * 20 + 20) + 'px';
+        heart.style.fontSize = (Math.random() * 15 + 18) + 'px';
         heart.style.animationDuration = (Math.random() * 4 + 4) + 's';
-        heart.style.animationDelay = Math.random() * 6 + 's';
+        heart.style.animationDelay = Math.random() * 5 + 's';
         container.appendChild(heart);
     }
 }
 
 // ========== STARS ==========
 function createStars(containerId) {
-    const container = document.getElementById(containerId);
+    var container = document.getElementById(containerId);
     if (!container) return;
     container.innerHTML = '';
     
-    for (let i = 0; i < 200; i++) {
-        const star = document.createElement('div');
+    for (var i = 0; i < 120; i++) {
+        var star = document.createElement('div');
         star.className = 'star';
         star.style.left = Math.random() * 100 + '%';
         star.style.top = Math.random() * 100 + '%';
         star.style.width = (Math.random() * 3 + 1) + 'px';
         star.style.height = star.style.width;
         star.style.animationDelay = Math.random() * 3 + 's';
-        star.style.animationDuration = (Math.random() * 2 + 1) + 's';
         container.appendChild(star);
     }
 }
 
-// ========== SHOOTING STARS ==========
-function createShootingStars() {
-    setInterval(() => {
-        const container = document.getElementById('shootingStars1');
-        if (!container || currentPage !== 1) return;
-        
-        const star = document.createElement('div');
-        star.className = 'shooting-star';
-        star.style.left = Math.random() * 50 + '%';
-        star.style.top = Math.random() * 30 + '%';
-        container.appendChild(star);
-        
-        setTimeout(() => star.remove(), 2000);
-    }, 3000);
-}
-
 // ========== BUBBLES ==========
 function createBubbles() {
-    const container = document.getElementById('bubbles3');
+    var container = document.getElementById('bubbles3');
     if (!container) return;
     container.innerHTML = '';
     
-    for (let i = 0; i < 20; i++) {
-        const bubble = document.createElement('div');
+    for (var i = 0; i < 15; i++) {
+        var bubble = document.createElement('div');
         bubble.className = 'bubble';
         bubble.style.left = Math.random() * 100 + '%';
-        bubble.style.width = (Math.random() * 30 + 10) + 'px';
+        bubble.style.width = (Math.random() * 40 + 15) + 'px';
         bubble.style.height = bubble.style.width;
         bubble.style.animationDuration = (Math.random() * 5 + 5) + 's';
         bubble.style.animationDelay = Math.random() * 5 + 's';
@@ -95,105 +91,133 @@ function createBubbles() {
 
 // ========== FIREFLIES ==========
 function createFireflies() {
-    const container = document.getElementById('fireflies4');
+    var container = document.getElementById('fireflies4');
     if (!container) return;
     container.innerHTML = '';
     
-    for (let i = 0; i < 25; i++) {
-        const firefly = document.createElement('div');
+    for (var i = 0; i < 20; i++) {
+        var firefly = document.createElement('div');
         firefly.className = 'firefly';
         firefly.style.left = Math.random() * 100 + '%';
         firefly.style.top = Math.random() * 100 + '%';
-        firefly.style.animationDuration = (Math.random() * 4 + 4) + 's';
-        firefly.style.animationDelay = Math.random() * 4 + 's';
+        firefly.style.animationDelay = Math.random() * 5 + 's';
+        firefly.style.animationDuration = (Math.random() * 3 + 4) + 's';
         container.appendChild(firefly);
     }
 }
 
 // ========== EMOJI RAIN ==========
 function createEmojiRain() {
-    const emojis = ['💕', '💖', '✨', '🎉', '💗', '🥰', '💝', '⭐', '🌟', '💫', '🎊'];
+    var emojis = ['💕', '💖', '✨', '🎉', '💗', '🥰', '💝', '⭐', '🌟', '💫'];
     
-    for (let i = 0; i < 50; i++) {
-        setTimeout(() => {
-            const emoji = document.createElement('span');
-            emoji.className = 'emoji-rain';
-            emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-            emoji.style.left = Math.random() * 100 + '%';
-            emoji.style.animationDuration = (Math.random() * 3 + 3) + 's';
-            document.body.appendChild(emoji);
-            
-            setTimeout(() => emoji.remove(), 6000);
-        }, i * 80);
+    for (var i = 0; i < 40; i++) {
+        (function(index) {
+            setTimeout(function() {
+                var emoji = document.createElement('span');
+                emoji.className = 'emoji-rain';
+                emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                emoji.style.left = Math.random() * 100 + '%';
+                emoji.style.animationDuration = (Math.random() * 2 + 3) + 's';
+                document.body.appendChild(emoji);
+                
+                setTimeout(function() { 
+                    if (emoji.parentNode) emoji.parentNode.removeChild(emoji); 
+                }, 5000);
+            }, index * 100);
+        })(i);
     }
 }
 
 // ========== CONFETTI ==========
 function createConfetti() {
-    const colors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#96e6a1', '#ffeaa7', '#dfe6e9', '#fd79a8', '#ffd700', '#a29bfe'];
-    const shapes = ['square', 'circle'];
+    var colors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#96e6a1', '#ffeaa7', '#fd79a8', '#ffd700', '#a29bfe'];
     
-    for (let i = 0; i < 200; i++) {
-        setTimeout(() => {
-            const confetti = document.createElement('div');
-            confetti.className = 'confetti';
-            confetti.style.left = Math.random() * 100 + '%';
-            confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-            confetti.style.animationDuration = (Math.random() * 3 + 2) + 's';
-            
-            if (shapes[Math.floor(Math.random() * shapes.length)] === 'circle') {
-                confetti.style.borderRadius = '50%';
-            }
-            
-            document.body.appendChild(confetti);
-            
-            setTimeout(() => confetti.remove(), 5000);
-        }, i * 25);
+    for (var i = 0; i < 120; i++) {
+        (function(index) {
+            setTimeout(function() {
+                var confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                
+                if (Math.random() > 0.5) {
+                    confetti.style.borderRadius = '50%';
+                }
+                
+                document.body.appendChild(confetti);
+                
+                setTimeout(function() { 
+                    if (confetti.parentNode) confetti.parentNode.removeChild(confetti); 
+                }, 4000);
+            }, index * 25);
+        })(i);
     }
 }
 
 // ========== FIREWORKS ==========
+var fireworkInterval;
 function createFireworks() {
-    const container = document.getElementById('fireworks');
+    var container = document.getElementById('fireworks');
     if (!container) return;
     
-    const colors = ['#ff6b6b', '#ffd700', '#4ecdc4', '#a29bfe', '#fd79a8'];
+    var colors = ['#ff6b6b', '#ffd700', '#4ecdc4', '#fd79a8', '#a29bfe'];
     
-    setInterval(() => {
-        if (currentPage !== 7) return;
+    if (fireworkInterval) clearInterval(fireworkInterval);
+    
+    fireworkInterval = setInterval(function() {
+        if (currentPage !== 7) {
+            clearInterval(fireworkInterval);
+            return;
+        }
         
-        const firework = document.createElement('div');
+        var firework = document.createElement('div');
         firework.className = 'firework';
         firework.style.left = Math.random() * 80 + 10 + '%';
         firework.style.top = Math.random() * 50 + 10 + '%';
         firework.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-        firework.style.boxShadow = `0 0 20px ${firework.style.backgroundColor}`;
+        firework.style.boxShadow = '0 0 10px ' + firework.style.backgroundColor;
         container.appendChild(firework);
         
-        setTimeout(() => firework.remove(), 1000);
+        setTimeout(function() { 
+            if (firework.parentNode) firework.parentNode.removeChild(firework); 
+        }, 1200);
     }, 500);
 }
 
 // ========== SHOW PAGE ==========
 function showPage(pageNum) {
-    // Stop all audio when changing pages
-    document.getElementById('bgMusic').pause();
-    document.getElementById('hindiMusic').pause();
+    // Pause all audio
+    var bgMusic = document.getElementById('bgMusic');
+    var hindiMusic = document.getElementById('hindiMusic');
+    if (bgMusic) bgMusic.pause();
+    if (hindiMusic) hindiMusic.pause();
     
-    document.querySelectorAll('.page').forEach(page => {
-        page.classList.remove('active');
-    });
+    // Hide all pages
+    var pages = document.querySelectorAll('.page');
+    for (var i = 0; i < pages.length; i++) {
+        pages[i].classList.remove('active');
+    }
     
-    document.getElementById('page' + pageNum).classList.add('active');
+    // Show current page
+    var currentPageEl = document.getElementById('page' + pageNum);
+    if (currentPageEl) currentPageEl.classList.add('active');
     
     // Update navigation
-    document.getElementById('prevBtn').style.display = pageNum > 1 ? 'block' : 'none';
-    document.getElementById('nextBtn').style.display = pageNum < totalPages ? 'block' : 'none';
+    var prevBtn = document.getElementById('prevBtn');
+    var nextBtn = document.getElementById('nextBtn');
+    if (prevBtn) prevBtn.style.display = pageNum > 1 ? 'block' : 'none';
+    if (nextBtn) nextBtn.style.display = pageNum < totalPages ? 'block' : 'none';
     
     // Update dots
-    document.querySelectorAll('.dot').forEach((dot, index) => {
-        dot.classList.toggle('active', index === pageNum - 1);
-    });
+    var dots = document.querySelectorAll('.dot');
+    for (var j = 0; j < dots.length; j++) {
+        if (j === pageNum - 1) {
+            dots[j].classList.add('active');
+        } else {
+            dots[j].classList.remove('active');
+        }
+    }
     
     // Page specific animations
     switch(pageNum) {
@@ -205,13 +229,13 @@ function showPage(pageNum) {
             createStars('stars3');
             createBubbles();
             animateWannaBeYours();
-            playMusic('bgMusic');
+            playAudio('bgMusic');
             break;
         case 4:
             createStars('stars4');
             createFireflies();
             animateHindiLyrics();
-            playMusic('hindiMusic');
+            playAudio('hindiMusic');
             break;
         case 5:
             animateGallery();
@@ -219,7 +243,7 @@ function showPage(pageNum) {
             break;
         case 6:
             animateReasons();
-            createHeartsPage6();
+            createFloatingHeartsPage6();
             break;
         case 7:
             createStars('stars7');
@@ -233,24 +257,31 @@ function showPage(pageNum) {
     }
 }
 
-// ========== PLAY MUSIC ==========
-function playMusic(audioId) {
-    const audio = document.getElementById(audioId);
-    if (audio) {
-        audio.currentTime = 0;
-        audio.play().catch(e => console.log('Audio play failed:', e));
-        document.getElementById('musicBtn').textContent = '🔊';
-        document.getElementById('musicBtn').classList.add('playing');
-        musicPlaying = true;
+// ========== PLAY AUDIO ==========
+function playAudio(id) {
+    var audio = document.getElementById(id);
+    if (!audio) return;
+    
+    audio.currentTime = 0;
+    var playPromise = audio.play();
+    
+    if (playPromise !== undefined) {
+        playPromise.then(function() {
+            var btn = document.getElementById('musicBtn');
+            if (btn) {
+                btn.textContent = '🔊';
+                btn.classList.add('playing');
+            }
+            musicPlaying = true;
+        }).catch(function(e) {
+            console.log('Audio autoplay blocked');
+        });
     }
 }
 
-// ========== OPEN SURPRISE ==========
-function openSurprise() {
+// ========== NAVIGATION ==========
+function startJourney() {
     nextPage();
-    // Try to play music on user interaction
-    const audio = document.getElementById('bgMusic');
-    audio.play().catch(e => console.log('Audio autoplay blocked'));
 }
 
 function nextPage() {
@@ -269,237 +300,305 @@ function prevPage() {
 
 // ========== PAGE 2 - COME CLOSER ==========
 function animateCloser() {
-    const texts = ['closer1', 'closer2', 'closer3', 'closer4', 'closer5'];
-    let delay = 0;
+    var texts = ['closer1', 'closer2', 'closer3', 'closer4', 'closer5'];
     
-    // Reset all
-    texts.forEach(id => {
-        const el = document.getElementById(id);
-        el.classList.remove('show');
-        el.style.fontSize = '3rem';
-    });
+    // Reset
+    for (var i = 0; i < texts.length; i++) {
+        var el = document.getElementById(texts[i]);
+        if (el) {
+            el.classList.remove('show');
+            el.style.fontSize = '3rem';
+        }
+    }
     
-    texts.forEach((id, index) => {
-        setTimeout(() => {
-            texts.forEach(t => document.getElementById(t).classList.remove('show'));
-            const el = document.getElementById(id);
-            el.classList.add('show');
-            el.style.fontSize = (2.5 + index * 0.6) + 'rem';
-        }, delay);
-        delay += 1800;
-    });
-    
-    // Auto go to next page after animation
-    setTimeout(() => {
-        if (currentPage === 2) nextPage();
-    }, delay + 1500);
+    var delay = 500;
+    for (var j = 0; j < texts.length; j++) {
+        (function(index) {
+            setTimeout(function() {
+                // Hide all
+                for (var k = 0; k < texts.length; k++) {
+                    var hideEl = document.getElementById(texts[k]);
+                    if (hideEl) hideEl.classList.remove('show');
+                }
+                // Show current
+                var showEl = document.getElementById(texts[index]);
+                if (showEl) {
+                    showEl.classList.add('show');
+                    showEl.style.fontSize = (2.5 + index * 0.5) + 'rem';
+                }
+            }, delay + (index * 1500));
+        })(j);
+    }
 }
 
 // ========== PAGE 3 - WANNA BE YOURS ==========
 function animateWannaBeYours() {
-    const items = [
+    var items = [
         { text: 'wanna1', photo: 'photo1' },
         { text: 'wanna2', photo: 'photo2' },
         { text: 'wanna3', photo: 'photo3' },
         { text: 'wanna4', photo: 'photo4' }
     ];
     
-    // Reset all
-    items.forEach(item => {
-        document.getElementById(item.text).classList.remove('visible');
-        document.getElementById(item.photo).classList.remove('visible');
-    });
+    // Reset
+    for (var i = 0; i < items.length; i++) {
+        var textEl = document.getElementById(items[i].text);
+        var photoEl = document.getElementById(items[i].photo);
+        if (textEl) textEl.classList.remove('visible');
+        if (photoEl) photoEl.classList.remove('visible');
+    }
     
-    let delay = 500;
-    items.forEach((item, index) => {
-        setTimeout(() => {
-            document.getElementById(item.text).classList.add('visible');
-        }, delay);
-        delay += 1000;
-        
-        setTimeout(() => {
-            document.getElementById(item.photo).classList.add('visible');
-        }, delay);
-        delay += 2000;
-    });
+    var delay = 500;
+    for (var j = 0; j < items.length; j++) {
+        (function(index) {
+            // Show text
+            setTimeout(function() {
+                var t = document.getElementById(items[index].text);
+                if (t) t.classList.add('visible');
+            }, delay + (index * 2600));
+            
+            // Show photo
+            setTimeout(function() {
+                var p = document.getElementById(items[index].photo);
+                if (p) p.classList.add('visible');
+            }, delay + 800 + (index * 2600));
+        })(j);
+    }
 }
 
 // ========== PAGE 4 - HINDI LYRICS ==========
 function animateHindiLyrics() {
-    const lines = ['hl1', 'hl2', 'hl3', 'hl4', 'hl5', 'hl6', 'hl7'];
+    var lines = ['hl1', 'hl2', 'hl3', 'hl4', 'hl5', 'hl6', 'hl7'];
     
-    lines.forEach(id => document.getElementById(id).classList.remove('visible'));
+    // Reset
+    for (var i = 0; i < lines.length; i++) {
+        var el = document.getElementById(lines[i]);
+        if (el) el.classList.remove('visible');
+    }
     
-    let delay = 500;
-    lines.forEach((id, index) => {
-        setTimeout(() => {
-            document.getElementById(id).classList.add('visible');
-        }, delay);
-        delay += 1500;
-    });
+    var delay = 500;
+    for (var j = 0; j < lines.length; j++) {
+        (function(index) {
+            setTimeout(function() {
+                var line = document.getElementById(lines[index]);
+                if (line) line.classList.add('visible');
+            }, delay + (index * 1200));
+        })(j);
+    }
 }
 
 // ========== PAGE 5 - GALLERY ==========
 function animateGallery() {
-    const cards = document.querySelectorAll('.photo-card');
-    cards.forEach((card, index) => {
-        card.classList.remove('visible');
-        setTimeout(() => {
-            card.classList.add('visible');
-        }, index * 400 + 300);
-    });
+    var cards = document.querySelectorAll('.photo-card');
+    
+    for (var i = 0; i < cards.length; i++) {
+        cards[i].classList.remove('visible');
+    }
+    
+    for (var j = 0; j < cards.length; j++) {
+        (function(index) {
+            setTimeout(function() {
+                cards[index].classList.add('visible');
+            }, 200 + (index * 300));
+        })(j);
+    }
 }
 
 // ========== PAGE 6 - REASONS ==========
 function animateReasons() {
-    const reasons = ['r1', 'r2', 'r3', 'r4', 'r5', 'r6'];
+    var reasons = ['r1', 'r2', 'r3', 'r4', 'r5', 'r6'];
     
-    reasons.forEach(id => document.getElementById(id).classList.remove('visible'));
+    for (var i = 0; i < reasons.length; i++) {
+        var el = document.getElementById(reasons[i]);
+        if (el) el.classList.remove('visible');
+    }
     
-    let delay = 300;
-    reasons.forEach((id, index) => {
-        setTimeout(() => {
-            document.getElementById(id).classList.add('visible');
-        }, delay);
-        delay += 600;
-    });
+    var delay = 300;
+    for (var j = 0; j < reasons.length; j++) {
+        (function(index) {
+            setTimeout(function() {
+                var r = document.getElementById(reasons[index]);
+                if (r) r.classList.add('visible');
+            }, delay + (index * 500));
+        })(j);
+    }
 }
 
-function createHeartsPage6() {
-    const container = document.getElementById('heartsPage6');
+function createFloatingHeartsPage6() {
+    var container = document.getElementById('heartsPage6');
     if (!container) return;
     container.innerHTML = '';
     
-    const hearts = ['💕', '💖', '💗', '❤️'];
+    var hearts = ['💕', '💖', '💗', '❤️'];
     
-    for (let i = 0; i < 15; i++) {
-        const heart = document.createElement('span');
+    for (var i = 0; i < 15; i++) {
+        var heart = document.createElement('span');
         heart.className = 'floating-heart';
         heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
         heart.style.left = Math.random() * 100 + '%';
         heart.style.animationDuration = (Math.random() * 4 + 4) + 's';
         heart.style.animationDelay = Math.random() * 5 + 's';
-        heart.style.opacity = '0.3';
+        heart.style.opacity = '0.4';
         container.appendChild(heart);
     }
 }
 
-// ========== PAGE 8 - CAT KISS (FIXED) ==========
+// ========== PAGE 8 - CAT KISS FULLSCREEN ==========
 function animateCatKiss() {
-    const texts = ['kiss1', 'kiss2', 'kiss3'];
-    const intro = document.getElementById('kissIntro');
-    const videoWrapper = document.getElementById('videoWrapper');
-    const video = document.getElementById('catVideo');
+    var texts = ['kiss1', 'kiss2', 'kiss3'];
+    var intro = document.getElementById('kissIntro');
+    var videoWrapper = document.getElementById('videoWrapper');
+    var video = document.getElementById('catVideo');
     
     // Reset
-    intro.style.display = 'block';
-    videoWrapper.classList.remove('show');
-    texts.forEach(id => {
-        document.getElementById(id).classList.remove('show');
-    });
+    if (intro) intro.style.display = 'block';
+    if (videoWrapper) videoWrapper.classList.remove('show');
+    for (var i = 0; i < texts.length; i++) {
+        var el = document.getElementById(texts[i]);
+        if (el) el.classList.remove('show');
+    }
     
-    let delay = 0;
-    texts.forEach((id, index) => {
-        setTimeout(() => {
-            texts.forEach(t => document.getElementById(t).classList.remove('show'));
-            document.getElementById(id).classList.add('show');
-        }, delay);
-        delay += 2000;
-    });
+    var delay = 500;
+    for (var j = 0; j < texts.length; j++) {
+        (function(index) {
+            setTimeout(function() {
+                // Hide all
+                for (var k = 0; k < texts.length; k++) {
+                    var hideEl = document.getElementById(texts[k]);
+                    if (hideEl) hideEl.classList.remove('show');
+                }
+                // Show current
+                var showEl = document.getElementById(texts[index]);
+                if (showEl) showEl.classList.add('show');
+            }, delay + (index * 2000));
+        })(j);
+    }
     
-    // Show video with sound
-    setTimeout(() => {
-        intro.style.display = 'none';
-        videoWrapper.classList.add('show');
-        video.muted = false; // SOUND ON
-        video.currentTime = 0;
-        video.play().catch(e => console.log('Video play failed:', e));
+    // Show video after all texts
+    setTimeout(function() {
+        if (intro) intro.style.display = 'none';
+        if (videoWrapper) videoWrapper.classList.add('show');
+        if (video) {
+            video.muted = false;
+            video.currentTime = 0;
+            video.play().catch(function(e) {
+                console.log('Video play error');
+            });
+        }
         createEmojiRain();
-    }, delay + 500);
+    }, delay + (texts.length * 2000) + 500);
 }
 
-// ========== FULLSCREEN VIDEO ==========
-document.getElementById('fullscreenBtn').addEventListener('click', () => {
-    const video = document.getElementById('catVideo');
+// ========== EVENT LISTENERS ==========
+document.addEventListener('DOMContentLoaded', function() {
     
-    if (video.requestFullscreen) {
-        video.requestFullscreen();
-    } else if (video.webkitRequestFullscreen) {
-        video.webkitRequestFullscreen();
-    } else if (video.msRequestFullscreen) {
-        video.msRequestFullscreen();
+    // Navigation buttons
+    var prevBtn = document.getElementById('prevBtn');
+    var nextBtn = document.getElementById('nextBtn');
+    if (prevBtn) prevBtn.addEventListener('click', prevPage);
+    if (nextBtn) nextBtn.addEventListener('click', nextPage);
+    
+    // Fullscreen button
+    var fullscreenBtn = document.getElementById('fullscreenBtn');
+    if (fullscreenBtn) {
+        fullscreenBtn.addEventListener('click', function() {
+            var video = document.getElementById('catVideo');
+            if (!video) return;
+            
+            if (video.requestFullscreen) {
+                video.requestFullscreen();
+            } else if (video.webkitRequestFullscreen) {
+                video.webkitRequestFullscreen();
+            } else if (video.msRequestFullscreen) {
+                video.msRequestFullscreen();
+            } else if (video.webkitEnterFullscreen) {
+                video.webkitEnterFullscreen();
+            }
+        });
     }
-});
-
-// ========== REPLAY VIDEO ==========
-document.getElementById('replayBtn').addEventListener('click', () => {
-    const video = document.getElementById('catVideo');
-    video.currentTime = 0;
-    video.play();
-});
-
-// ========== MUSIC CONTROL ==========
-document.getElementById('musicBtn').addEventListener('click', () => {
-    const bgMusic = document.getElementById('bgMusic');
-    const hindiMusic = document.getElementById('hindiMusic');
-    const btn = document.getElementById('musicBtn');
     
-    if (musicPlaying) {
-        bgMusic.pause();
-        hindiMusic.pause();
-        btn.textContent = '🎵';
-        btn.classList.remove('playing');
-    } else {
-        if (currentPage === 3) {
-            bgMusic.play();
-        } else if (currentPage === 4) {
-            hindiMusic.play();
-        } else {
-            bgMusic.play();
+    // Replay button
+    var replayBtn = document.getElementById('replayBtn');
+    if (replayBtn) {
+        replayBtn.addEventListener('click', function() {
+            var video = document.getElementById('catVideo');
+            if (video) {
+                video.currentTime = 0;
+                video.play();
+            }
+        });
+    }
+    
+    // Music button
+    var musicBtn = document.getElementById('musicBtn');
+    if (musicBtn) {
+        musicBtn.addEventListener('click', function() {
+            var bgMusic = document.getElementById('bgMusic');
+            var hindiMusic = document.getElementById('hindiMusic');
+            
+            if (musicPlaying) {
+                if (bgMusic) bgMusic.pause();
+                if (hindiMusic) hindiMusic.pause();
+                musicBtn.textContent = '🎵';
+                musicBtn.classList.remove('playing');
+            } else {
+                if (currentPage === 4 && hindiMusic) {
+                    hindiMusic.play();
+                } else if (bgMusic) {
+                    bgMusic.play();
+                }
+                musicBtn.textContent = '🔊';
+                musicBtn.classList.add('playing');
+            }
+            musicPlaying = !musicPlaying;
+        });
+    }
+    
+    // Dot navigation
+    var dots = document.querySelectorAll('.dot');
+    for (var i = 0; i < dots.length; i++) {
+        (function(index) {
+            dots[index].addEventListener('click', function() {
+                currentPage = index + 1;
+                showPage(currentPage);
+            });
+        })(i);
+    }
+    
+    // Keyboard navigation
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'ArrowRight' || e.key === ' ') {
+            e.preventDefault();
+            nextPage();
+        } else if (e.key === 'ArrowLeft') {
+            e.preventDefault();
+            prevPage();
         }
-        btn.textContent = '🔊';
-        btn.classList.add('playing');
-    }
-    musicPlaying = !musicPlaying;
-});
-
-// ========== DOT NAVIGATION ==========
-document.querySelectorAll('.dot').forEach((dot, index) => {
-    dot.addEventListener('click', () => {
-        currentPage = index + 1;
-        showPage(currentPage);
     });
-});
-
-// ========== KEYBOARD NAVIGATION ==========
-document.addEventListener('keydown', (e) => {
-    if (e.key === 'ArrowRight' || e.key === ' ') {
-        nextPage();
-    } else if (e.key === 'ArrowLeft') {
-        prevPage();
-    }
-});
-
-// ========== SWIPE NAVIGATION (MOBILE) ==========
-let touchStartX = 0;
-let touchEndX = 0;
-
-document.addEventListener('touchstart', (e) => {
-    touchStartX = e.changedTouches[0].screenX;
-});
-
-document.addEventListener('touchend', (e) => {
-    touchEndX = e.changedTouches[0].screenX;
-    handleSwipe();
-});
-
-function handleSwipe() {
-    const diff = touchStartX - touchEndX;
-    if (Math.abs(diff) > 50) {
-        if (diff > 0) {
-            nextPage(); // Swipe left = next
-        } else {
-            prevPage(); // Swipe right = prev
+    
+    // Touch/Swipe navigation
+    var touchStartX = 0;
+    var touchEndX = 0;
+    
+    document.addEventListener('touchstart', function(e) {
+        touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+    
+    document.addEventListener('touchend', function(e) {
+        touchEndX = e.changedTouches[0].screenX;
+        var diff = touchStartX - touchEndX;
+        
+        if (Math.abs(diff) > 50) {
+            if (diff > 0) {
+                nextPage();
+            } else {
+                prevPage();
+            }
         }
-    }
-}
+    }, { passive: true });
+});
+
+// Make functions global
+window.startJourney = startJourney;
+window.nextPage = nextPage;
+window.prevPage = prevPage;
