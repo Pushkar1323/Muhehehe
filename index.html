@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wanna Be Yours</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;700&family=Playfair+Display:ital,wght@1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Start Overlay -->
+    <div id="overlay">
+        <div class="content">
+            <h1>Hey Cutie ❤️</h1>
+            <p>Put on your headphones & tap below</p>
+            <button id="start-btn">Play Song 🎵</button>
+        </div>
+    </div>
+
+    <audio id="music">
+        <source src="song.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="stars"></div>
+    <div class="twinkling"></div>
+
+    <div class="container">
+        
+        <!-- Intro -->
+        <section class="full-screen center">
+            <h1>Happy New Year<br><span class="highlight">My Love</span></h1>
+            <p>Listen carefully...</p>
+        </section>
+
+        <!-- SYNCED LYRICS SECTION -->
+        <section class="lyrics-wrapper">
+            <!-- data-time="0" matlab 0 seconds pe ye line aayegi -->
+            <p class="lyric-line" data-time="0">"I wanna be your vacuum cleaner..."</p>
+            
+            <!-- data-time="4" matlab 4 seconds pe ye line aayegi -->
+            <p class="lyric-line" data-time="4">"Breathing in your dust..."</p>
+            
+            <p class="lyric-line" data-time="8">"I wanna be your Ford Cortina..."</p>
+            
+            <p class="lyric-line" data-time="12">"I will never rust..."</p>
+            
+            <p class="lyric-line highlight-text" data-time="15">"I just wanna be yours..."</p>
+            
+            <p class="lyric-line" data-time="20">(I love you so much ❤️)</p>
+        </section>
+
+        <!-- Photos -->
+        <section class="gallery">
+            <h2>Our Memories 📸</h2>
+            <div class="cards-wrapper">
+                <div class="card"><img src="pic1.jpg" alt="Us"></div>
+                <div class="card"><img src="pic2.jpg" alt="Us"></div>
+                <div class="card"><img src="pic3.jpg" alt="Us"></div>
+            </div>
+        </section>
+
+        <!-- Message -->
+        <section class="full-screen center">
+            <div class="message-box">
+                <h2>Ready for 2025?</h2>
+                <p>Happy New Year Baby! 🎆</p>
+            </div>
+        </section>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
