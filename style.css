@@ -8,6 +8,19 @@ body {
     font-family: 'Poppins', sans-serif;
     overflow-x: hidden;
     background: #0a0a0a;
+    cursor: none;
+}
+
+/* ========== CUSTOM CURSOR ========== */
+.cursor-trail {
+    position: fixed;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #ff6b6b, transparent);
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.1s ease;
 }
 
 /* ========== PRELOADER ========== */
@@ -32,19 +45,44 @@ body {
 }
 
 .heart-loader {
-    font-size: 60px;
+    font-size: 80px;
     animation: heartbeat 1s infinite;
 }
 
 @keyframes heartbeat {
     0%, 100% { transform: scale(1); }
+    25% { transform: scale(1.1); }
     50% { transform: scale(1.3); }
+    75% { transform: scale(1.1); }
 }
 
 .preloader p {
     color: #fff;
     margin-top: 20px;
     font-size: 18px;
+    letter-spacing: 2px;
+}
+
+.loading-bar {
+    width: 200px;
+    height: 4px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 10px;
+    margin-top: 30px;
+    overflow: hidden;
+}
+
+.loading-progress {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, #ff6b6b, #ffd700);
+    border-radius: 10px;
+    animation: loading 2.5s ease forwards;
+}
+
+@keyframes loading {
+    0% { width: 0%; }
+    100% { width: 100%; }
 }
 
 /* ========== PAGE STYLES ========== */
@@ -80,8 +118,51 @@ body {
 }
 
 @keyframes twinkle {
-    0%, 100% { opacity: 0.3; }
-    50% { opacity: 1; }
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.2); }
+}
+
+/* ========== SHOOTING STARS ========== */
+.shooting-star {
+    position: absolute;
+    width: 100px;
+    height: 2px;
+    background: linear-gradient(90deg, white, transparent);
+    animation: shoot 2s linear forwards;
+}
+
+@keyframes shoot {
+    0% {
+        transform: translateX(0) translateY(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(500px) translateY(300px);
+        opacity: 0;
+    }
+}
+
+/* ========== AURORA EFFECT ========== */
+.aurora {
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    top: -50%;
+    left: -50%;
+    background: linear-gradient(
+        45deg,
+        transparent 30%,
+        rgba(255, 107, 107, 0.1) 40%,
+        rgba(102, 126, 234, 0.1) 50%,
+        rgba(118, 75, 162, 0.1) 60%,
+        transparent 70%
+    );
+    animation: aurora 10s linear infinite;
+}
+
+@keyframes aurora {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 
 /* ========== FLOATING HEARTS ========== */
@@ -96,19 +177,24 @@ body {
 .floating-heart {
     position: absolute;
     font-size: 30px;
-    animation: floatUp 4s linear infinite;
-    opacity: 0.6;
+    animation: floatUp 6s linear infinite;
+    opacity: 0;
 }
 
 @keyframes floatUp {
     0% {
-        transform: translateY(100vh) rotate(0deg);
+        transform: translateY(100vh) rotate(0deg) scale(0);
         opacity: 0;
     }
-    10% { opacity: 0.6; }
-    90% { opacity: 0.6; }
+    10% {
+        opacity: 0.8;
+        transform: translateY(90vh) rotate(30deg) scale(1);
+    }
+    90% {
+        opacity: 0.8;
+    }
     100% {
-        transform: translateY(-100px) rotate(720deg);
+        transform: translateY(-10vh) rotate(360deg) scale(0.5);
         opacity: 0;
     }
 }
@@ -116,7 +202,7 @@ body {
 @keyframes fadeInUp {
     from {
         opacity: 0;
-        transform: translateY(30px);
+        transform: translateY(50px);
     }
     to {
         opacity: 1;
@@ -135,36 +221,115 @@ body {
     z-index: 10;
 }
 
-.welcome-text h1 {
-    font-family: 'Dancing Script', cursive;
-    font-size: 4rem;
-    margin-bottom: 20px;
-    animation: fadeInUp 1s ease;
+/* Envelope Animation */
+.envelope {
+    width: 300px;
+    height: 200px;
+    margin: 0 auto 40px;
+    position: relative;
+    cursor: pointer;
+    transform-style: preserve-3d;
+    transition: all 0.5s ease;
 }
 
-.welcome-text p {
-    font-size: 1.5rem;
-    margin-bottom: 40px;
-    animation: fadeInUp 1s ease 0.3s both;
+.envelope:hover {
+    transform: scale(1.05);
+}
+
+.envelope-body {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #fff5f5, #ffffff);
+    border-radius: 10px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.envelope-top {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    background: linear-gradient(135deg, #ff6b6b, #ee5a5a);
+    clip-path: polygon(0 0, 50% 100%, 100% 0);
+    z-index: 2;
+    transform-origin: top;
+    animation: envelopeOpen 1s ease 3s forwards;
+}
+
+@keyframes envelopeOpen {
+    to {
+        transform: rotateX(180deg);
+    }
+}
+
+.letter {
+    padding: 20px;
+    text-align: center;
+}
+
+.letter h1 {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2rem;
+    color: #764ba2;
+    margin-bottom: 10px;
+}
+
+.letter p {
+    font-size: 0.9rem;
+    color: #666;
 }
 
 .start-btn {
-    padding: 15px 50px;
-    font-size: 1.2rem;
+    padding: 18px 60px;
+    font-size: 1.3rem;
     background: rgba(255,255,255,0.2);
     border: 2px solid white;
     color: white;
     border-radius: 50px;
     cursor: pointer;
     transition: all 0.3s ease;
-    animation: fadeInUp 1s ease 0.6s both;
     backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+}
+
+.start-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    animation: shine 2s infinite;
+}
+
+@keyframes shine {
+    to {
+        left: 100%;
+    }
 }
 
 .start-btn:hover {
     background: white;
     color: #764ba2;
     transform: scale(1.1);
+    box-shadow: 0 10px 40px rgba(255,255,255,0.3);
+}
+
+.pulse {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(255,255,255,0.4); }
+    50% { box-shadow: 0 0 0 20px rgba(255,255,255,0); }
 }
 
 /* ========== PAGE 2 - COME CLOSER ========== */
@@ -178,53 +343,97 @@ body {
     text-align: center;
     opacity: 0;
     position: absolute;
-    font-family: 'Dancing Script', cursive;
-    transition: all 0.5s ease;
+    font-family: 'Great Vibes', cursive;
+    transition: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    text-shadow: 0 0 30px rgba(255,107,107,0.5);
 }
 
 .closer-text.show {
     opacity: 1;
+    animation: textPop 0.5s ease;
+}
+
+@keyframes textPop {
+    0% { transform: scale(0.5); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
 }
 
 /* ========== PAGE 3 - WANNA BE YOURS ========== */
 .page3 {
     background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
     padding: 20px;
+    overflow-y: auto;
+}
+
+.floating-bubbles {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.bubble {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.3), rgba(255,107,107,0.1));
+    border-radius: 50%;
+    animation: bubbleFloat 8s ease-in-out infinite;
+}
+
+@keyframes bubbleFloat {
+    0%, 100% {
+        transform: translateY(100vh) scale(0);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+        transform: translateY(80vh) scale(1);
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-10vh) scale(0.5);
+        opacity: 0;
+    }
 }
 
 .wanna-container {
     text-align: center;
     z-index: 10;
     position: relative;
+    padding: 50px 20px;
 }
 
 .wanna-text {
-    font-family: 'Dancing Script', cursive;
-    font-size: 3.5rem;
+    font-family: 'Great Vibes', cursive;
+    font-size: 4rem;
     color: #ff6b6b;
-    margin-bottom: 30px;
+    margin: 40px 0;
     opacity: 0;
-    transform: scale(0.5);
-    transition: all 0.5s ease;
-    text-shadow: 0 0 20px rgba(255, 107, 107, 0.5);
+    transform: scale(0.5) rotate(-5deg);
+    transition: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    text-shadow: 0 0 30px rgba(255, 107, 107, 0.6);
 }
 
 .wanna-text.visible {
     opacity: 1;
-    transform: scale(1);
+    transform: scale(1) rotate(0deg);
 }
 
 .photo-frame {
-    width: 300px;
-    height: 300px;
+    width: 280px;
+    height: 280px;
     border-radius: 20px;
     overflow: hidden;
-    margin: 20px auto;
+    margin: 30px auto;
     opacity: 0;
-    transform: scale(0) rotate(-10deg);
-    transition: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-    box-shadow: 0 20px 60px rgba(255, 107, 107, 0.4);
-    border: 5px solid rgba(255, 255, 255, 0.3);
+    transform: scale(0) rotate(-15deg);
+    transition: all 1s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    position: relative;
+    box-shadow: 0 25px 80px rgba(255, 107, 107, 0.5);
 }
 
 .photo-frame.visible {
@@ -232,10 +441,45 @@ body {
     transform: scale(1) rotate(0deg);
 }
 
+.photo-frame::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, #ff6b6b, #ffd700, #ff6b6b, #ffd700);
+    border-radius: 23px;
+    z-index: -1;
+    animation: borderGlow 3s linear infinite;
+    background-size: 400% 400%;
+}
+
+@keyframes borderGlow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
 .photo-frame img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.photo-frame:hover img {
+    transform: scale(1.1);
+}
+
+.photo-glow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, transparent 50%, rgba(255,107,107,0.3));
+    pointer-events: none;
 }
 
 /* ========== PAGE 4 - HINDI LYRICS ========== */
@@ -244,139 +488,287 @@ body {
     padding: 20px;
 }
 
+.fireflies {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.firefly {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: #ffd700;
+    border-radius: 50%;
+    box-shadow: 0 0 20px #ffd700, 0 0 40px #ffd700;
+    animation: fireflyFloat 6s ease-in-out infinite;
+}
+
+@keyframes fireflyFloat {
+    0%, 100% {
+        transform: translate(0, 0) scale(1);
+        opacity: 0.3;
+    }
+    25% {
+        transform: translate(100px, -50px) scale(1.2);
+        opacity: 1;
+    }
+    50% {
+        transform: translate(50px, -100px) scale(0.8);
+        opacity: 0.5;
+    }
+    75% {
+        transform: translate(-50px, -30px) scale(1.1);
+        opacity: 0.8;
+    }
+}
+
 .hindi-container {
     text-align: center;
     max-width: 900px;
     z-index: 10;
+    padding: 40px 20px;
 }
 
 .hindi-title {
     font-family: 'Dancing Script', cursive;
-    font-size: 2.5rem;
+    font-size: 3rem;
     color: #ffd700;
-    margin-bottom: 40px;
+    margin-bottom: 50px;
+    text-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
 }
 
 .hindi-line {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     color: white;
-    margin: 25px 0;
+    margin: 30px 0;
     opacity: 0;
-    transform: translateY(30px);
-    transition: all 0.8s ease;
+    transform: translateX(-100px);
+    transition: all 1s ease;
+    position: relative;
 }
 
 .hindi-line.visible {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateX(0);
+}
+
+.hindi-line:nth-child(even) {
+    transform: translateX(100px);
+}
+
+.hindi-line.visible:nth-child(even) {
+    transform: translateX(0);
 }
 
 .hindi-line.main-line {
     color: #ff6b6b;
-    font-size: 2.2rem;
+    font-size: 1.9rem;
     text-shadow: 0 0 20px rgba(255, 107, 107, 0.5);
+}
+
+.hindi-line.golden {
+    color: #ffd700;
+    font-size: 2.2rem;
+    text-shadow: 0 0 30px rgba(255, 215, 0, 0.6);
+    animation: goldenGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes goldenGlow {
+    from {
+        text-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
+    }
+    to {
+        text-shadow: 0 0 40px rgba(255, 215, 0, 0.8), 0 0 60px rgba(255, 215, 0, 0.4);
+    }
 }
 
 /* ========== PAGE 5 - GALLERY ========== */
 .page5 {
     background: linear-gradient(135deg, #2c3e50, #4ca1af);
     padding: 40px 20px;
+    min-height: 100vh;
+}
+
+.gradient-bg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, 
+        rgba(255,107,107,0.1) 0%, 
+        rgba(102,126,234,0.1) 50%, 
+        rgba(118,75,162,0.1) 100%);
+    animation: gradientShift 10s ease infinite;
+    background-size: 200% 200%;
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
 .gallery-title {
     font-family: 'Dancing Script', cursive;
-    font-size: 3rem;
+    font-size: 3.5rem;
     color: white;
-    margin-bottom: 40px;
+    margin-bottom: 50px;
     z-index: 10;
+    text-shadow: 0 5px 30px rgba(0,0,0,0.3);
 }
 
 .photo-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 25px;
-    max-width: 1000px;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    max-width: 1100px;
     width: 100%;
     z-index: 10;
 }
 
 .photo-card {
-    background: rgba(255,255,255,0.15);
     border-radius: 20px;
-    padding: 15px;
-    backdrop-filter: blur(10px);
-    transition: all 0.4s ease;
+    overflow: hidden;
+    transition: all 0.5s ease;
     opacity: 0;
-    transform: translateY(50px);
+    transform: translateY(80px) rotateX(10deg);
+    perspective: 1000px;
 }
 
 .photo-card.visible {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) rotateX(0deg);
 }
 
-.photo-card:hover {
-    transform: translateY(-15px) rotate(3deg);
-    box-shadow: 0 25px 50px rgba(0,0,0,0.4);
+.card-inner {
+    position: relative;
+    overflow: hidden;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
 }
 
 .photo-card img {
     width: 100%;
-    height: 200px;
+    height: 220px;
     object-fit: cover;
-    border-radius: 15px;
+    transition: transform 0.5s ease;
 }
 
-.photo-card p {
+.card-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(0,0,0,0.8));
+    padding: 20px;
+    transform: translateY(100%);
+    transition: transform 0.4s ease;
+}
+
+.photo-card:hover .card-overlay {
+    transform: translateY(0);
+}
+
+.photo-card:hover img {
+    transform: scale(1.1);
+}
+
+.photo-card:hover {
+    transform: translateY(-15px);
+    box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+}
+
+.card-overlay p {
     color: white;
     text-align: center;
-    margin-top: 15px;
-    font-size: 1rem;
+    font-size: 1.1rem;
+    margin: 0;
 }
 
 /* ========== PAGE 6 - REASONS ========== */
 .page6 {
     background: linear-gradient(135deg, #ee0979, #ff6a00);
     padding: 40px 20px;
+    overflow-y: auto;
+}
+
+.hearts-floating {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    overflow: hidden;
 }
 
 .reasons-container {
     max-width: 800px;
     text-align: center;
     z-index: 10;
+    padding: 20px;
 }
 
 .reasons-title {
     font-family: 'Dancing Script', cursive;
-    font-size: 3rem;
+    font-size: 3.5rem;
     color: white;
-    margin-bottom: 40px;
+    margin-bottom: 50px;
+    text-shadow: 0 5px 30px rgba(0,0,0,0.2);
 }
 
 .reason-item {
-    background: rgba(255,255,255,0.2);
-    padding: 20px 35px;
-    border-radius: 50px;
-    margin: 20px 0;
+    background: rgba(255,255,255,0.15);
+    padding: 25px 35px;
+    border-radius: 60px;
+    margin: 25px 0;
     color: white;
-    font-size: 1.2rem;
     backdrop-filter: blur(10px);
     opacity: 0;
-    transform: translateX(-100px);
-    transition: all 0.6s ease;
+    transform: translateX(-150px) rotate(-5deg);
+    transition: all 0.7s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    border: 2px solid rgba(255,255,255,0.2);
 }
 
 .reason-item.visible {
     opacity: 1;
-    transform: translateX(0);
+    transform: translateX(0) rotate(0deg);
 }
 
 .reason-item:nth-child(even) {
-    transform: translateX(100px);
+    transform: translateX(150px) rotate(5deg);
 }
 
 .reason-item.visible:nth-child(even) {
-    transform: translateX(0);
+    transform: translateX(0) rotate(0deg);
+}
+
+.reason-item:hover {
+    transform: scale(1.05);
+    background: rgba(255,255,255,0.25);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+}
+
+.reason-num {
+    width: 50px;
+    height: 50px;
+    background: white;
+    color: #ee0979;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 1.3rem;
+    flex-shrink: 0;
+}
+
+.reason-text {
+    font-size: 1.2rem;
+    text-align: left;
 }
 
 /* ========== PAGE 7 - FINAL MESSAGE ========== */
@@ -385,47 +777,112 @@ body {
     padding: 40px 20px;
 }
 
+.fireworks {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.firework {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    animation: explode 1s ease-out forwards;
+}
+
+@keyframes explode {
+    0% {
+        transform: scale(0);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(20);
+        opacity: 0;
+    }
+}
+
 .final-message {
     text-align: center;
     max-width: 800px;
     z-index: 10;
 }
 
+.year-display {
+    font-size: 2rem;
+    color: white;
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.year-old {
+    opacity: 0.5;
+    text-decoration: line-through;
+}
+
+.year-arrow {
+    animation: arrowBounce 1s ease infinite;
+}
+
+@keyframes arrowBounce {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(10px); }
+}
+
+.year-new {
+    color: #ffd700;
+    font-weight: bold;
+    text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+}
+
 .final-message h1 {
     font-family: 'Dancing Script', cursive;
-    font-size: 3.5rem;
+    font-size: 4rem;
     color: #ff6b6b;
-    margin-bottom: 30px;
+    margin-bottom: 40px;
     animation: glow 2s ease-in-out infinite alternate;
 }
 
 @keyframes glow {
     from {
-        text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #ff6b6b;
+        text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #ff6b6b;
     }
     to {
-        text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #ff6b6b, 0 0 40px #ff6b6b;
+        text-shadow: 0 0 20px #fff, 0 0 40px #fff, 0 0 60px #ff6b6b, 0 0 80px #ff6b6b;
     }
 }
 
 .final-message p {
-    font-size: 1.4rem;
+    font-size: 1.5rem;
     color: white;
-    line-height: 2;
-    margin-bottom: 20px;
+    line-height: 2.2;
+    margin-bottom: 25px;
     opacity: 0;
     animation: fadeInUp 1s ease forwards;
 }
 
-.final-message p:nth-child(2) { animation-delay: 0.5s; }
-.final-message p:nth-child(3) { animation-delay: 1s; }
-.final-message p:nth-child(4) { animation-delay: 1.5s; }
-.final-message p:nth-child(5) { animation-delay: 2s; }
-.final-message p:nth-child(6) { animation-delay: 2.5s; }
+.final-message p:nth-child(3) { animation-delay: 0.5s; }
+.final-message p:nth-child(4) { animation-delay: 1s; }
+.final-message p:nth-child(5) { animation-delay: 1.5s; }
+.final-message p:nth-child(6) { animation-delay: 2s; }
+.final-message p:nth-child(7) { animation-delay: 2.5s; }
 
 .love-text {
-    font-size: 2.5rem !important;
-    margin-top: 30px !important;
+    font-size: 3rem !important;
+    font-family: 'Dancing Script', cursive;
+    color: #ff6b6b !important;
+    margin-top: 40px !important;
+}
+
+.heart-beat {
+    font-size: 80px;
+    margin-top: 30px;
+    animation: heartbeat 1s infinite;
 }
 
 /* ========== PAGE 8 - CAT KISS ========== */
@@ -436,32 +893,49 @@ body {
 .cat-container {
     text-align: center;
     z-index: 10;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
-.cat-text {
-    font-family: 'Dancing Script', cursive;
-    font-size: 3rem;
+.kiss-intro {
+    position: relative;
+    height: 100px;
+}
+
+.kiss-text {
+    font-family: 'Great Vibes', cursive;
+    font-size: 3.5rem;
     color: white;
     position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
     opacity: 0;
-    transition: all 0.5s ease;
+    transition: all 0.8s ease;
+    white-space: nowrap;
+    text-shadow: 0 0 30px rgba(255,107,107,0.5);
 }
 
-.cat-text.show {
+.kiss-text.show {
     opacity: 1;
+    animation: textPop 0.5s ease;
 }
 
-.cat-video {
+.video-wrapper {
     display: none;
-    max-width: 90%;
-    max-height: 70vh;
-    border-radius: 20px;
-    box-shadow: 0 20px 60px rgba(255,107,107,0.4);
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+    max-width: 800px;
 }
 
-.cat-video.show {
-    display: block;
-    animation: zoomIn 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+.video-wrapper.show {
+    display: flex;
+    animation: zoomIn 1s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
 @keyframes zoomIn {
@@ -475,14 +949,52 @@ body {
     }
 }
 
+.cat-video {
+    width: 100%;
+    max-height: 70vh;
+    border-radius: 20px;
+    box-shadow: 0 30px 80px rgba(255,107,107,0.5);
+    border: 4px solid rgba(255,255,255,0.2);
+}
+
+.fullscreen-btn, .replay-btn {
+    padding: 15px 40px;
+    font-size: 1.1rem;
+    background: rgba(255,107,107,0.8);
+    border: none;
+    color: white;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.fullscreen-btn:hover, .replay-btn:hover {
+    background: #ff6b6b;
+    transform: scale(1.1);
+    box-shadow: 0 10px 30px rgba(255,107,107,0.4);
+}
+
+.replay-btn {
+    background: rgba(255,255,255,0.2);
+    border: 2px solid white;
+}
+
+/* Fullscreen Video */
+.cat-video:fullscreen {
+    width: 100vw;
+    height: 100vh;
+    object-fit: contain;
+    background: black;
+}
+
 /* ========== NAVIGATION ========== */
 .nav-btn {
     position: fixed;
     bottom: 30px;
     padding: 15px 40px;
     font-size: 1rem;
-    background: rgba(255,255,255,0.2);
-    border: 2px solid white;
+    background: rgba(255,255,255,0.15);
+    border: 2px solid rgba(255,255,255,0.5);
     color: white;
     border-radius: 50px;
     cursor: pointer;
@@ -496,24 +1008,55 @@ body {
     background: white;
     color: #333;
     transform: scale(1.1);
+    box-shadow: 0 10px 30px rgba(255,255,255,0.2);
 }
 
 .prev-btn { left: 30px; }
 .next-btn { right: 30px; }
+
+/* ========== PAGE INDICATOR ========== */
+.page-indicator {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 12px;
+    z-index: 100;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    background: rgba(255,255,255,0.3);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.dot.active {
+    background: #ff6b6b;
+    transform: scale(1.3);
+    box-shadow: 0 0 15px rgba(255,107,107,0.6);
+}
+
+.dot:hover {
+    background: rgba(255,255,255,0.6);
+}
 
 /* ========== MUSIC BUTTON ========== */
 .music-btn {
     position: fixed;
     top: 20px;
     right: 20px;
-    width: 55px;
-    height: 55px;
-    background: rgba(255,255,255,0.2);
-    border: 2px solid white;
+    width: 60px;
+    height: 60px;
+    background: rgba(255,255,255,0.15);
+    border: 2px solid rgba(255,255,255,0.5);
     border-radius: 50%;
     cursor: pointer;
     z-index: 1000;
-    font-size: 24px;
+    font-size: 26px;
     backdrop-filter: blur(10px);
     transition: all 0.3s ease;
     display: flex;
@@ -522,59 +1065,99 @@ body {
 }
 
 .music-btn:hover {
-    transform: scale(1.1);
-    background: rgba(255,255,255,0.3);
+    transform: scale(1.1) rotate(10deg);
+    background: rgba(255,255,255,0.25);
+}
+
+.music-btn.playing {
+    animation: musicPulse 1s infinite;
+}
+
+@keyframes musicPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(255,107,107,0.4); }
+    50% { box-shadow: 0 0 0 15px rgba(255,107,107,0); }
 }
 
 /* ========== CONFETTI ========== */
 .confetti {
     position: fixed;
-    width: 10px;
-    height: 10px;
-    top: -10px;
+    width: 12px;
+    height: 12px;
+    top: -20px;
     z-index: 1000;
-    animation: confetti-fall 3s linear forwards;
+    animation: confetti-fall 4s linear forwards;
 }
 
 @keyframes confetti-fall {
-    to {
-        transform: translateY(100vh) rotate(720deg);
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100vh) rotate(1080deg);
+        opacity: 0;
     }
 }
 
 /* ========== EMOJI RAIN ========== */
 .emoji-rain {
     position: fixed;
-    top: -50px;
-    font-size: 30px;
-    animation: emojifall 4s linear forwards;
+    top: -60px;
+    font-size: 35px;
+    animation: emojifall 5s linear forwards;
     z-index: 1000;
 }
 
 @keyframes emojifall {
-    to {
-        transform: translateY(110vh) rotate(360deg);
+    0% {
+        transform: translateY(0) rotate(0deg) scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(110vh) rotate(720deg) scale(0.5);
+        opacity: 0;
     }
 }
 
 /* ========== RESPONSIVE ========== */
 @media (max-width: 768px) {
+    body {
+        cursor: auto;
+    }
+    
+    .cursor-trail {
+        display: none;
+    }
+    
     .welcome-text h1 { font-size: 2.5rem; }
-    .welcome-text p { font-size: 1.1rem; }
+    .envelope { width: 250px; height: 170px; }
+    .letter h1 { font-size: 1.5rem; }
+    .start-btn { padding: 15px 40px; font-size: 1.1rem; }
     .wanna-text { font-size: 2.5rem; }
-    .photo-frame { width: 250px; height: 250px; }
-    .hindi-line { font-size: 1.3rem; }
+    .photo-frame { width: 220px; height: 220px; }
+    .hindi-line { font-size: 1.2rem; }
+    .hindi-line.main-line { font-size: 1.4rem; }
+    .hindi-line.golden { font-size: 1.6rem; }
     .closer-text { font-size: 2rem; }
-    .cat-text { font-size: 2rem; }
+    .kiss-text { font-size: 2rem; }
     .nav-btn { 
         padding: 12px 25px; 
         font-size: 0.9rem;
-        bottom: 20px;
+        bottom: 80px;
     }
     .prev-btn { left: 10px; }
     .next-btn { right: 10px; }
+    .page-indicator { bottom: 20px; }
     .final-message h1 { font-size: 2.5rem; }
     .final-message p { font-size: 1.1rem; }
     .reasons-title { font-size: 2.5rem; }
-    .reason-item { font-size: 1rem; padding: 15px 25px; }
+    .reason-item { 
+        font-size: 1rem; 
+        padding: 15px 20px; 
+        flex-direction: column;
+        text-align: center;
+    }
+    .reason-text { text-align: center; }
+    .gallery-title { font-size: 2.5rem; }
+    .year-display { font-size: 1.5rem; }
     }
