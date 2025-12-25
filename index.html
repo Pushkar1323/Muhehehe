@@ -18,36 +18,29 @@
         </div>
     </div>
 
-    <!-- Cursor Trail Effect -->
-    <div class="cursor-trail" id="cursorTrail"></div>
-
     <!-- Music Button -->
     <button class="music-btn" id="musicBtn">🎵</button>
 
     <!-- Audio Files -->
-    <audio id="bgMusic" src="wanna-be-yours.mp3" preload="auto"></audio>
-    <audio id="hindiMusic" src="hum-tere-pyaar.mp3" preload="auto"></audio>
+    <audio id="bgMusic" preload="none">
+        <source src="wanna-be-yours.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="hindiMusic" preload="none">
+        <source src="hum-tere-pyaar.mp3" type="audio/mpeg">
+    </audio>
 
     <!-- Page 1 - Welcome -->
     <div class="page page1 active" id="page1">
         <div class="hearts-bg" id="heartsBg"></div>
         <div class="stars" id="stars1"></div>
-        <div class="shooting-stars" id="shootingStars1"></div>
         <div class="welcome-text">
-            <div class="envelope" id="envelope">
-                <div class="envelope-top"></div>
-                <div class="envelope-body">
-                    <div class="letter">
-                        <h1>Hey Cutie! 💕</h1>
-                        <p>Maine tumhare liye kuch special banaya hai...</p>
-                    </div>
-                </div>
-            </div>
-            <button class="start-btn pulse" onclick="openSurprise()">Open Your Surprise 🎁</button>
+            <h1>Hey Cutie! 💕</h1>
+            <p>Maine tumhare liye kuch special banaya hai...</p>
+            <button class="start-btn" onclick="startJourney()">Open Your Surprise 🎁</button>
         </div>
     </div>
 
-    <!-- Page 2 - Come Closer (ONLY ONE TIME NOW) -->
+    <!-- Page 2 - Come Closer -->
     <div class="page page2" id="page2">
         <div class="stars" id="stars2"></div>
         <div class="aurora"></div>
@@ -61,30 +54,26 @@
     <!-- Page 3 - Wanna Be Yours + Photos -->
     <div class="page page3" id="page3">
         <div class="stars" id="stars3"></div>
-        <div class="floating-bubbles" id="bubbles3"></div>
+        <div class="bubbles" id="bubbles3"></div>
         <div class="wanna-container">
             <p class="wanna-text" id="wanna1">I wanna be yours... 🎵</p>
             <div class="photo-frame" id="photo1">
                 <img src="photo1.jpg" alt="Us" onerror="this.src='https://via.placeholder.com/300x300/ff6b6b/ffffff?text=Photo+1'">
-                <div class="photo-glow"></div>
             </div>
             
             <p class="wanna-text" id="wanna2">Wanna be yours... 💕</p>
             <div class="photo-frame" id="photo2">
                 <img src="photo2.jpg" alt="Us" onerror="this.src='https://via.placeholder.com/300x300/764ba2/ffffff?text=Photo+2'">
-                <div class="photo-glow"></div>
             </div>
             
             <p class="wanna-text" id="wanna3">Wanna be yours... 🥰</p>
             <div class="photo-frame" id="photo3">
                 <img src="photo3.jpg" alt="Us" onerror="this.src='https://via.placeholder.com/300x300/667eea/ffffff?text=Photo+3'">
-                <div class="photo-glow"></div>
             </div>
             
             <p class="wanna-text" id="wanna4">Wanna be yours... ❤️</p>
             <div class="photo-frame" id="photo4">
                 <img src="photo4.jpg" alt="Us" onerror="this.src='https://via.placeholder.com/300x300/ee0979/ffffff?text=Photo+4'">
-                <div class="photo-glow"></div>
             </div>
         </div>
     </div>
@@ -111,36 +100,20 @@
         <h2 class="gallery-title">Our Beautiful Memories 📸</h2>
         <div class="photo-grid" id="photoGrid">
             <div class="photo-card">
-                <div class="card-inner">
-                    <img src="photo5.jpg" alt="Memory" onerror="this.src='https://via.placeholder.com/300x200/ff6b6b/ffffff?text=Memory+1'">
-                    <div class="card-overlay">
-                        <p>Yaad hai yeh din? 💕</p>
-                    </div>
-                </div>
+                <img src="photo5.jpg" alt="Memory" onerror="this.src='https://via.placeholder.com/300x200/ff6b6b/ffffff?text=Memory+1'">
+                <p>Yaad hai yeh din? 💕</p>
             </div>
             <div class="photo-card">
-                <div class="card-inner">
-                    <img src="photo6.jpg" alt="Memory" onerror="this.src='https://via.placeholder.com/300x200/764ba2/ffffff?text=Memory+2'">
-                    <div class="card-overlay">
-                        <p>Kitne cute ho tum! 🥰</p>
-                    </div>
-                </div>
+                <img src="photo6.jpg" alt="Memory" onerror="this.src='https://via.placeholder.com/300x200/764ba2/ffffff?text=Memory+2'">
+                <p>Kitne cute ho tum! 🥰</p>
             </div>
             <div class="photo-card">
-                <div class="card-inner">
-                    <img src="photo7.jpg" alt="Memory" onerror="this.src='https://via.placeholder.com/300x200/667eea/ffffff?text=Memory+3'">
-                    <div class="card-overlay">
-                        <p>Best moments! ✨</p>
-                    </div>
-                </div>
+                <img src="photo7.jpg" alt="Memory" onerror="this.src='https://via.placeholder.com/300x200/667eea/ffffff?text=Memory+3'">
+                <p>Best moments! ✨</p>
             </div>
             <div class="photo-card">
-                <div class="card-inner">
-                    <img src="photo8.jpg" alt="Memory" onerror="this.src='https://via.placeholder.com/300x200/4ca1af/ffffff?text=Memory+4'">
-                    <div class="card-overlay">
-                        <p>Forever with you! 💖</p>
-                    </div>
-                </div>
+                <img src="photo8.jpg" alt="Memory" onerror="this.src='https://via.placeholder.com/300x200/4ca1af/ffffff?text=Memory+4'">
+                <p>Forever with you! 💖</p>
             </div>
         </div>
     </div>
@@ -188,16 +161,16 @@
                 <span class="year-new">2025</span>
             </div>
             <h1>Happy New Year! 🎉</h1>
-            <p>Is naye saal mein bhi tumhare saath hazaaron memories banana chahta hoon...</p>
-            <p>Tum mere liye bahut special ho... 💕</p>
-            <p>Aur hamesha rahoge...</p>
-            <p>Thank you for being in my life!</p>
-            <p class="love-text">I Love You! ❤️</p>
+            <p id="fm1">Is naye saal mein bhi tumhare saath hazaaron memories banana chahta hoon...</p>
+            <p id="fm2">Tum mere liye bahut special ho... 💕</p>
+            <p id="fm3">Aur hamesha rahoge...</p>
+            <p id="fm4">Thank you for being in my life!</p>
+            <p class="love-text" id="fm5">I Love You! ❤️</p>
             <div class="heart-beat">💓</div>
         </div>
     </div>
 
-    <!-- Page 8 - Cat Kiss (FULLSCREEN + SOUND) -->
+    <!-- Page 8 - Cat Kiss FULLSCREEN -->
     <div class="page page8" id="page8">
         <div class="stars" id="stars8"></div>
         <div class="cat-container" id="catContainer">
@@ -207,31 +180,33 @@
                 <p class="kiss-text" id="kiss3">3... 2... 1... 😚</p>
             </div>
             <div class="video-wrapper" id="videoWrapper">
-                <video class="cat-video" id="catVideo" playsinline>
+                <video class="cat-video" id="catVideo" playsinline preload="none">
                     <source src="cat-kiss.mp4" type="video/mp4">
                 </video>
-                <button class="fullscreen-btn" id="fullscreenBtn">🔲 Fullscreen</button>
-                <button class="replay-btn" id="replayBtn">🔄 Replay</button>
+                <div class="video-buttons">
+                    <button class="video-btn fullscreen-btn" id="fullscreenBtn">📺 FULLSCREEN</button>
+                    <button class="video-btn replay-btn" id="replayBtn">🔄 Replay</button>
+                </div>
             </div>
         </div>
     </div>
 
     <!-- Navigation -->
-    <button class="nav-btn prev-btn" id="prevBtn" onclick="prevPage()">← Back</button>
-    <button class="nav-btn next-btn" id="nextBtn" onclick="nextPage()">Next →</button>
+    <button class="nav-btn prev-btn" id="prevBtn">← Back</button>
+    <button class="nav-btn next-btn" id="nextBtn">Next →</button>
 
-    <!-- Page Indicator -->
+    <!-- Page Indicator Dots -->
     <div class="page-indicator" id="pageIndicator">
-        <span class="dot active" data-page="1"></span>
-        <span class="dot" data-page="2"></span>
-        <span class="dot" data-page="3"></span>
-        <span class="dot" data-page="4"></span>
-        <span class="dot" data-page="5"></span>
-        <span class="dot" data-page="6"></span>
-        <span class="dot" data-page="7"></span>
-        <span class="dot" data-page="8"></span>
+        <span class="dot active"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
     </div>
 
     <script src="script.js"></script>
 </body>
-            </html>
+    </html>
