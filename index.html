@@ -2,325 +2,44 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Happy New Year Cutie ❤️</title>
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;600&display=swap" rel="stylesheet">
-    <style>
-        /* --- CSS MAGIC (DESIGN) --- */
-        :root {
-            --primary: #ff3366;
-            --bg-dark: #0f0f1a;
-            --glass: rgba(255, 255, 255, 0.1);
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        body {
-            background: radial-gradient(circle at center, #1a0b1a, #000);
-            color: white;
-            font-family: 'Poppins', sans-serif;
-            height: 100vh;
-            overflow: hidden; /* No scrolling */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        /* Animated Background Stars (No GIF needed) */
-        .stars {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none;
-            background-image: 
-                radial-gradient(2px 2px at 20px 30px, #fff, transparent),
-                radial-gradient(2px 2px at 40px 70px, #fff, transparent),
-                radial-gradient(2px 2px at 80px 120px, #fff, transparent);
-            background-size: 200px 200px;
-            animation: moveStars 50s linear infinite;
-            opacity: 0.5;
-            z-index: -1;
-        }
-        @keyframes moveStars { from {transform: translateY(0);} to {transform: translateY(-1000px);} }
-
-        /* Floating Hearts Background */
-        .heart-bg {
-            position: absolute;
-            color: rgba(255, 51, 102, 0.2);
-            font-size: 2rem;
-            animation: floatUp 10s linear infinite;
-            z-index: -1;
-        }
-        @keyframes floatUp {
-            0% { transform: translateY(100vh) scale(0.5); opacity: 0; }
-            50% { opacity: 0.8; }
-            100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
-        }
-
-        /* --- SCREEN 1: INTRO --- */
-        #intro {
-            text-align: center;
-            z-index: 10;
-        }
-        .btn {
-            background: var(--primary);
-            color: white;
-            padding: 15px 40px;
-            border: none;
-            border-radius: 50px;
-            font-size: 1.2rem;
-            font-weight: bold;
-            cursor: pointer;
-            box-shadow: 0 0 20px rgba(255, 51, 102, 0.6);
-            animation: heartbeat 1.5s infinite;
-        }
-        @keyframes heartbeat { 0%{transform: scale(1);} 50%{transform: scale(1.1);} 100%{transform: scale(1);} }
-
-        /* --- SCREEN 2: MAIN CONTENT --- */
-        #main {
-            display: none; /* Hidden initially */
-            flex-direction: column;
-            align-items: center;
-            justify-content: space-between;
-            height: 100%;
-            width: 100%;
-            padding: 20px;
-            max-width: 500px; /* Mobile width limit */
-        }
-
-        /* Typing Effect Area */
-        .typing-area {
-            height: 15%;
-            display: flex;
-            align-items: flex-end;
-            justify-content: center;
-        }
-        .typing-text {
-            font-family: 'Dancing Script', cursive;
-            font-size: 2rem;
-            color: var(--primary);
-            text-shadow: 0 0 10px rgba(255, 51, 102, 0.8);
-        }
-
-        /* Photo Card (Glassmorphism) */
-        .photo-card {
-            background: var(--glass);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.2);
-            padding: 15px;
-            border-radius: 20px;
-            width: 90%;
-            aspect-ratio: 3/4; /* Vertical Photo shape */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            transition: transform 0.5s;
-        }
-        
-        .photo-card img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 15px;
-            animation: fadeIn 1s ease;
-        }
-        @keyframes fadeIn { from{opacity:0;} to{opacity:1;} }
-
-        /* Lyrics Area */
-        .lyrics-container {
-            height: 20%;
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-        }
-        
-        .lyric-line {
-            font-size: 1.3rem;
-            font-weight: 300;
-            opacity: 0.6;
-            transition: all 0.3s ease;
-            margin: 5px 0;
-        }
-        
-        .active-lyric {
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: #fff;
-            opacity: 1;
-            text-shadow: 0 0 15px rgba(255,255,255,0.5);
-            transform: scale(1.05);
-        }
-
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy New Year My Cutie ❤️</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <!-- Stars & Hearts Background -->
-    <div class="stars"></div>
-    <!-- Script will add hearts here -->
-
-    <!-- Intro Button -->
-    <div id="intro">
-        <h3 style="margin-bottom:20px; font-weight:300;">Hey Cutie...</h3>
-        <button class="btn" onclick="startExperience()">Tap to Open 💌</button>
+    <div id="overlay">
+        <div class="heart-icon">💌</div>
+        <p>Tap to Open Your Surprise</p>
     </div>
 
-    <!-- Main Content -->
-    <div id="main">
-        <!-- 1. Typing Text -->
-        <div class="typing-area">
-            <h1 class="typing-text" id="typewriter"></h1>
+    <div class="container" id="main-content">
+        
+        <div class="background-elements"></div>
+
+        <div class="typing-section">
+            <h1 id="typing-text"></h1>
         </div>
 
-        <!-- 2. Photo Slideshow -->
-        <div class="photo-card">
-            <!-- Default Placeholder Image -->
-            <img id="myPhoto" src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=1000&auto=format&fit=crop" alt="Us">
+        <div class="photo-frame">
+            <img src="https://images.unsplash.com/photo-1518568814500-bf0f8d125f46?q=80&w=1000&auto=format&fit=crop" alt="Cute Photo 1" class="active-photo">
+            <img src="https://images.unsplash.com/photo-1516575334481-f85287c2c81d?q=80&w=1000&auto=format&fit=crop" alt="Cute Photo 2">
+            <img src="https://images.unsplash.com/photo-1621112904887-419379ce6824?q=80&w=1000&auto=format&fit=crop" alt="Cute Photo 3">
         </div>
+        <p class="photo-caption">You are the best part of my year ❤️</p>
 
-        <!-- 3. Lyrics -->
         <div class="lyrics-container">
-            <p class="lyric-line" id="prev-lyric">...</p>
-            <p class="lyric-line active-lyric" id="current-lyric">Waiting...</p>
+            <div id="lyrics">Music start hone ka wait kar raha hu...</div>
         </div>
+
+        <audio id="audioPlayer" src="song.mp3"></audio>
+
+        <footer>
+            Happy New Year 2025 ✨
+        </footer>
     </div>
 
-    <!-- Audio Player (Hidden) -->
-    <!-- Bhai yaha apna gana daaliyo -->
-    <audio id="music-player">
-        <source src="song.mp3" type="audio/mpeg">
-    </audio>
-
-    <script>
-        // --- CONFIGURATION (Yaha badlaav karna) --- //
-
-        // 1. Gaana kitne second se shuru ho?
-        const startAt = 17; // Seconds
-
-        // 2. Typing Message kya likhna hai?
-        const message = "Happy New Year, My Cutie! ❤️";
-
-        // 3. Photos (Apni photos ke naam yaha likh, comma laga ke)
-        const photos = [
-            "pic1.jpg", 
-            "pic2.jpg", 
-            "pic3.jpg" 
-        ];
-
-        // 4. Lyrics (Time is in seconds relative to the START of the song FILE)
-        // Agar gana 0:00 se bajta hai toh 17s pe kya bol raha hai wo?
-        // Bhai tune bola 17s se start karna hai 'vacuum cleaner' wala part.
-        // Mai assume kar raha hu teri mp3 file me 17s pe wo line aati hai.
-        const lyricsData = [
-            { time: 17, text: "I wanna be your vacuum cleaner" },
-            { time: 20, text: "Breathing in your dust" },
-            { time: 23, text: "I wanna be your Ford Cortina" },
-            { time: 26, text: "I will never rust" },
-            { time: 30, text: "If you like your coffee hot" },
-            { time: 33, text: "Let me be your coffee pot" },
-            { time: 36, text: "You call the shots, babe" },
-            { time: 39, text: "I just wanna be yours..." },
-            { time: 44, text: "You are the best thing..." },
-            { time: 48, text: "...that happened to me ❤️" }
-        ];
-
-        // --- CODE LOGIC (Isse mat chedna) --- //
-
-        const intro = document.getElementById('intro');
-        const main = document.getElementById('main');
-        const audio = document.getElementById('music-player');
-        const typeElem = document.getElementById('typewriter');
-        const photoElem = document.getElementById('myPhoto');
-        const currentLyricElem = document.getElementById('current-lyric');
-        const prevLyricElem = document.getElementById('prev-lyric');
-
-        // Background Hearts Generator
-        setInterval(() => {
-            const heart = document.createElement('div');
-            heart.classList.add('heart-bg');
-            heart.innerHTML = '❤️';
-            heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.animationDuration = Math.random() * 5 + 5 + 's';
-            document.body.appendChild(heart);
-            setTimeout(() => { heart.remove(); }, 10000);
-        }, 800);
-
-        function startExperience() {
-            intro.style.display = 'none';
-            main.style.display = 'flex';
-            
-            // Audio Play
-            audio.currentTime = startAt;
-            audio.play().then(() => {
-                // Typing Effect Start
-                typeWriter(message, 0);
-                // Slideshow Start
-                startSlideshow();
-                // Lyrics Sync Start
-                syncLyrics();
-            }).catch(e => console.log("Click required to play audio"));
-        }
-
-        // Typing Effect
-        function typeWriter(text, i) {
-            if (i < text.length) {
-                typeElem.innerHTML += text.charAt(i);
-                setTimeout(() => typeWriter, 100, text, i + 1);
-            }
-        }
-        // Corrected Typing Logic without recursion issue
-        let charIndex = 0;
-        function typeWriter(text) {
-            if (charIndex < text.length) {
-                typeElem.innerHTML += text.charAt(charIndex);
-                charIndex++;
-                setTimeout(() => typeWriter(text), 100);
-            }
-        }
-
-        // Photo Slideshow
-        let photoIdx = 0;
-        function startSlideshow() {
-            setInterval(() => {
-                photoIdx = (photoIdx + 1) % photos.length;
-                photoElem.style.opacity = 0; // Fade out
-                setTimeout(() => {
-                    photoElem.src = photos[photoIdx];
-                    photoElem.style.opacity = 1; // Fade in
-                }, 500);
-            }, 3000); // Change every 3 seconds
-        }
-
-        // Lyrics Sync
-        function syncLyrics() {
-            setInterval(() => {
-                const currentTime = audio.currentTime;
-                // Find latest lyric
-                let idx = lyricsData.findIndex(l => l.time > currentTime);
-                if (idx === -1) idx = lyricsData.length; 
-                idx = idx - 1; // Get the current active one
-
-                if (idx >= 0) {
-                    const text = lyricsData[idx].text;
-                    if (currentLyricElem.innerText !== text) {
-                        // Move current to previous
-                        prevLyricElem.innerText = currentLyricElem.innerText;
-                        prevLyricElem.style.opacity = 0.4;
-                        // Set new current
-                        currentLyricElem.style.opacity = 0;
-                        setTimeout(() => {
-                            currentLyricElem.innerText = text;
-                            currentLyricElem.style.opacity = 1;
-                        }, 100);
-                    }
-                }
-            }, 200);
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
-                </html>
+</html>
