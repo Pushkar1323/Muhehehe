@@ -2,43 +2,61 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Happy New Year My Cutie ❤️</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;600&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <div id="overlay">
-        <div class="heart-icon">💌</div>
-        <p>Tap to Open Your Surprise</p>
-    </div>
+    <section id="page1" class="screen active">
+        <div class="content">
+            <div class="envelope-wrapper" onclick="goToPage2()">
+                <div class="heart-icon">💌</div>
+            </div>
+            <p class="instruction">You've got a secret letter...</p>
+            <p class="tap-hint">(Tap to open)</p>
+        </div>
+    </section>
 
-    <div class="container" id="main-content">
-        
-        <div class="background-elements"></div>
-
-        <div class="typing-section">
+    <section id="page2" class="screen">
+        <div class="pulse-bg"></div>
+        <div class="glass-card">
             <h1 id="typing-text"></h1>
         </div>
+        <button id="nextBtn" class="primary-btn" onclick="goToPage3()">Continue ✨</button>
+    </section>
 
-        <div class="photo-frame">
-            <img src="https://images.unsplash.com/photo-1518568814500-bf0f8d125f46?q=80&w=1000&auto=format&fit=crop" alt="Cute Photo 1" class="active-photo">
-            <img src="https://images.unsplash.com/photo-1516575334481-f85287c2c81d?q=80&w=1000&auto=format&fit=crop" alt="Cute Photo 2">
-            <img src="https://images.unsplash.com/photo-1621112904887-419379ce6824?q=80&w=1000&auto=format&fit=crop" alt="Cute Photo 3">
+    <section id="page3" class="screen">
+        <div class="loader-content">
+            <h1>Opening your 2025 surprise...</h1>
+            <div class="heart-loader"></div>
         </div>
-        <p class="photo-caption">You are the best part of my year ❤️</p>
+    </section>
 
-        <div class="lyrics-container">
-            <div id="lyrics">Music start hone ka wait kar raha hu...</div>
+    <section id="page4" class="screen">
+        <div class="bg-overlay"></div>
+        <div class="floating-elements" id="hearts-container"></div>
+
+        <div class="main-layout">
+            <div class="slider-frame">
+                <img src="https://images.unsplash.com/photo-1518568814500-bf0f8d125f46?q=80&w=1000" class="slide active">
+                <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?q=80&w=1000" class="slide">
+                <img src="https://images.unsplash.com/photo-1516575334481-f85287c2c81d?q=80&w=1000" class="slide">
+            </div>
+
+            <div class="text-content">
+                <h2 class="wish-title">Happy New Year, Cutie! ❤️</h2>
+                
+                <div class="lyrics-wrapper">
+                    <p id="lyrics-line"></p>
+                </div>
+            </div>
         </div>
+        <footer class="footer-text">Always Yours ♾️</footer>
+    </section>
 
-        <audio id="audioPlayer" src="song.mp3"></audio>
-
-        <footer>
-            Happy New Year 2025 ✨
-        </footer>
-    </div>
+    <audio id="mainAudio" src="song.mp3"></audio>
 
     <script src="script.js"></script>
 </body>
