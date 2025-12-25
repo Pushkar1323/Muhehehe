@@ -1,157 +1,111 @@
-/* General Reset */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+:root {
+    --primary: #ff4d6d;
+    --secondary: #ff758f;
+    --dark: #0f0c29;
 }
+
+* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
 body {
-    background: linear-gradient(135deg, #1a0b2e, #4a192c, #1a0b2e);
-    height: 100vh;
+    background: var(--dark);
     font-family: 'Poppins', sans-serif;
     color: white;
-    overflow: hidden; /* Scroll band taaki app jaisa feel aaye */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-/* Overlay Screen */
-#overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: #000;
-    z-index: 1000;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    transition: opacity 1s ease;
-}
-
-.heart-icon {
-    font-size: 4rem;
-    animation: heartbeat 1.5s infinite;
-}
-
-#overlay p {
-    margin-top: 10px;
-    font-size: 1.2rem;
-    color: #ffcccb;
-}
-
-/* Container */
-.container {
-    text-align: center;
-    width: 90%;
-    max-width: 400px;
-    opacity: 0; /* Hidden initially */
-    transition: opacity 2s ease;
-    z-index: 10;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    height: 90vh;
-    justify-content: space-between;
-}
-
-/* Typing Text */
-.typing-section h1 {
-    font-family: 'Dancing Script', cursive;
-    font-size: 2.2rem;
-    color: #ff9a9e;
-    min-height: 60px;
-    text-shadow: 0 0 10px rgba(255, 154, 158, 0.5);
-}
-
-/* Photo Frame */
-.photo-frame {
-    width: 100%;
-    height: 300px;
-    border-radius: 20px;
+    height: 100vh;
     overflow: hidden;
-    box-shadow: 0 0 20px rgba(255, 192, 203, 0.4);
-    position: relative;
-    margin: 10px 0;
-    border: 3px solid rgba(255, 255, 255, 0.2);
 }
 
-.photo-frame img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    position: absolute;
-    top: 0;
-    left: 0;
-    opacity: 0;
-    transition: opacity 1s ease-in-out;
-}
-
-.photo-frame img.active-photo {
-    opacity: 1;
-}
-
-.photo-caption {
-    font-size: 0.9rem;
-    color: #ddd;
-    margin-top: -10px;
-    margin-bottom: 10px;
-    font-style: italic;
-}
-
-/* Lyrics Styling */
-.lyrics-container {
-    height: 80px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-#lyrics {
-    font-size: 1.1rem;
-    color: #fff;
-    font-weight: 500;
-    text-align: center;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
-    transition: transform 0.3s ease, opacity 0.3s ease;
-}
-
-footer {
-    font-size: 0.8rem;
-    color: rgba(255,255,255,0.5);
-}
-
-/* Animations */
-@keyframes heartbeat {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.2); }
-    100% { transform: scale(1); }
-}
-
-/* Floating Hearts Background (Generated via CSS) */
-.background-elements {
+.screen {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
+    inset: 0;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    opacity: 0;
+    transition: opacity 0.8s ease;
+}
+
+.screen.active { display: flex; opacity: 1; }
+
+/* Page 1: Envelope */
+.heart-icon { font-size: 5rem; animation: heartBeat 1.2s infinite; cursor: pointer; }
+@keyframes heartBeat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.15); }
+}
+
+/* Page 2: Glass Box */
+.pulse-bg {
+    position: absolute;
+    width: 250px; height: 250px;
+    background: radial-gradient(circle, rgba(255, 77, 109, 0.4) 0%, transparent 70%);
+    animation: pulse 2s infinite;
     z-index: -1;
 }
+@keyframes pulse { 0% { transform: scale(0.8); opacity: 0.5; } 50% { transform: scale(1.3); opacity: 0.8; } 100% { transform: scale(0.8); opacity: 0.5; } }
 
-.heart {
-    position: absolute;
-    color: rgba(255, 107, 129, 0.4);
-    font-size: 1.5rem;
-    animation: floatUp 10s linear infinite;
-    bottom: -10%;
+.glass-card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(15px);
+    padding: 30px;
+    border-radius: 25px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    width: 90%; max-width: 350px;
+    min-height: 160px;
+    display: flex; align-items: center;
+}
+#typing-text { font-family: 'Dancing Script', cursive; font-size: 1.6rem; color: #ffccd5; }
+
+.primary-btn {
+    margin-top: 30px; padding: 12px 35px;
+    background: linear-gradient(45deg, var(--primary), var(--secondary));
+    border: none; border-radius: 50px;
+    color: white; font-weight: bold;
+    cursor: pointer; opacity: 0; transform: translateY(20px);
+    transition: 0.5s all;
+}
+.primary-btn.show { opacity: 1; transform: translateY(0); }
+
+/* Page 4: Main Surprise */
+.main-layout { width: 100%; max-width: 400px; z-index: 10; }
+
+.slider-frame {
+    width: 100%; height: 55vh;
+    border-radius: 30px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+    border: 3px solid rgba(255, 255, 255, 0.2);
+}
+.slide {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover; opacity: 0;
+    transition: opacity 1s ease;
+}
+.slide.active { opacity: 1; }
+
+.wish-title {
+    margin: 20px 0 10px;
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.8rem;
+    text-shadow: 0 0 10px var(--primary);
 }
 
-@keyframes floatUp {
-    0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-    100% { transform: translateY(-120vh) rotate(360deg); opacity: 0; }
+.lyrics-wrapper { height: 60px; display: flex; align-items: center; justify-content: center; }
+#lyrics-line {
+    font-size: 1.1rem; font-weight: 500;
+    transition: 0.3s all;
 }
+.pop-up { animation: pop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+@keyframes pop { 0% { transform: scale(0.6); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+
+.floating-heart {
+    position: absolute; color: rgba(255, 77, 109, 0.5);
+    animation: floatUp linear forwards;
+}
+@keyframes floatUp { to { transform: translateY(-100vh) rotate(360deg); opacity: 0; } }
+
+.footer-text { margin-top: 15px; font-size: 0.7rem; opacity: 0.5; }
