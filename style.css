@@ -1,0 +1,53 @@
+/* Baki purana CSS same rakhna, bas ye add/replace kar dena */
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #000; color: #fff; font-family: 'Montserrat', sans-serif; overflow-x: hidden; }
+
+/* Stars background (Same as before) */
+.stars, .twinkling { position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: block; }
+.stars { background: #000 url('http://www.script-tutorials.com/demos/360/images/stars.png') repeat top center; z-index: -2; }
+.twinkling { background: transparent url('http://www.script-tutorials.com/demos/360/images/twinkling.png') repeat top center; z-index: -1; animation: move-twink-back 200s linear infinite; opacity: 0.5; }
+@keyframes move-twink-back { from {background-position:0 0;} to {background-position:-10000px 5000px;} }
+
+#overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); display: flex; justify-content: center; align-items: center; z-index: 1000; transition: opacity 1s ease; }
+#start-btn { padding: 15px 40px; font-size: 1.2rem; background: #ff4d6d; color: white; border: none; border-radius: 50px; cursor: pointer; }
+
+/* LYRICS STYLE */
+.lyrics-wrapper {
+    padding: 50px 20px;
+    text-align: center;
+    min-height: 60vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.lyric-line {
+    font-size: 1.8rem;
+    margin: 15px 0;
+    color: #444; /* Disabled color */
+    transition: all 0.5s ease;
+    opacity: 0.3;
+    transform: scale(0.9);
+}
+
+/* Active Class (Jab gaana waha pahuchega) */
+.lyric-line.active {
+    color: #fff;
+    text-shadow: 0 0 15px #ff4d6d;
+    opacity: 1;
+    transform: scale(1.1);
+    font-weight: bold;
+}
+
+.highlight-text.active {
+    color: #ff4d6d;
+    font-size: 2.2rem;
+}
+
+/* Gallery & Rest */
+.full-screen { min-height: 80vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+.gallery { padding: 50px 0; text-align: center; }
+.cards-wrapper { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
+.card img { width: 150px; border-radius: 10px; border: 2px solid #fff; }
+.message-box { background: #111; padding: 30px; border-radius: 15px; border: 1px solid #333; }
