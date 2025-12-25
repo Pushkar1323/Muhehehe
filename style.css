@@ -1,53 +1,122 @@
-/* Baki purana CSS same rakhna, bas ye add/replace kar dena */
-
+/* --- 1. BASICS & THEME --- */
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { background: #000; color: #fff; font-family: 'Montserrat', sans-serif; overflow-x: hidden; }
 
-/* Stars background (Same as before) */
-.stars, .twinkling { position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: block; }
-.stars { background: #000 url('http://www.script-tutorials.com/demos/360/images/stars.png') repeat top center; z-index: -2; }
-.twinkling { background: transparent url('http://www.script-tutorials.com/demos/360/images/twinkling.png') repeat top center; z-index: -1; animation: move-twink-back 200s linear infinite; opacity: 0.5; }
-@keyframes move-twink-back { from {background-position:0 0;} to {background-position:-10000px 5000px;} }
-
-#overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); display: flex; justify-content: center; align-items: center; z-index: 1000; transition: opacity 1s ease; }
-#start-btn { padding: 15px 40px; font-size: 1.2rem; background: #ff4d6d; color: white; border: none; border-radius: 50px; cursor: pointer; }
-
-/* LYRICS STYLE */
-.lyrics-wrapper {
-    padding: 50px 20px;
-    text-align: center;
-    min-height: 60vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+body {
+    background-color: #050505;
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
 }
 
+/* Background Stars Animation */
+#stars {
+    width: 1px; height: 1px;
+    background: transparent;
+    box-shadow: 10px 10px #FFF, 20px 20px #FFF, 30px 30px #FFF; /* Simplified for demo */
+    animation: animStar 50s linear infinite;
+} 
+/* Note: For better stars, I am using a simple gradient below instead of complex box-shadow for performance */
+.bg-animation {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
+    background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+}
+
+/* --- 2. START OVERLAY --- */
+#start-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: #000; z-index: 999;
+    display: flex; justify-content: center; align-items: center;
+    transition: opacity 1s ease-out;
+}
+.center-box { text-align: center; }
+.center-box h1 { font-family: 'Dancing Script', cursive; font-size: 3rem; color: #ff4d6d; margin-bottom: 10px; }
+.sub-text { font-size: 0.8rem; color: #888; margin-bottom: 20px; }
+
+#play-btn {
+    padding: 15px 40px; font-size: 1.2rem;
+    background: linear-gradient(45deg, #ff4d6d, #c9184a);
+    color: white; border: none; border-radius: 50px;
+    cursor: pointer; box-shadow: 0 0 20px rgba(255, 77, 109, 0.5);
+    transition: transform 0.2s;
+    font-family: 'Montserrat', sans-serif;
+}
+#play-btn:hover { transform: scale(1.1); }
+
+/* --- 3. MAIN CONTENT --- */
+.main-container { display: none; opacity: 0; transition: opacity 2s ease; }
+
+/* Intro */
+.intro-section { height: 80vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+.intro-section h1 { font-family: 'Dancing Script', cursive; font-size: 4rem; line-height: 1.2; }
+.intro-section span { color: #ff4d6d; text-shadow: 0 0 15px #ff4d6d; }
+.fade-in { animation: fadeInUp 2s ease forwards; opacity: 0; transform: translateY(20px); }
+.delay { animation-delay: 1s; }
+
+/* Gallery */
+.gallery-section { padding: 50px 20px; text-align: center; }
+.section-title { font-size: 2rem; margin-bottom: 40px; color: #ffb3c1; }
+.photo-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; }
+
+.photo-card {
+    background: #fff; padding: 10px 10px 40px 10px;
+    width: 160px; border-radius: 5px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+    transition: transform 0.3s, z-index 0.3s;
+    position: relative;
+}
+.photo-card img { width: 100%; border-radius: 3px; }
+.photo-card p { color: #333; font-family: 'Dancing Script', cursive; font-size: 1.2rem; margin-top: 10px; }
+.tilt-left { transform: rotate(-5deg); }
+.tilt-right { transform: rotate(5deg); }
+.photo-card:hover { transform: scale(1.1) rotate(0deg) !important; z-index: 10; }
+
+/* Lyrics (The Magic Part) */
+.lyrics-container {
+    padding: 100px 20px;
+    text-align: center;
+    perspective: 500px;
+}
 .lyric-line {
-    font-size: 1.8rem;
-    margin: 15px 0;
-    color: #444; /* Disabled color */
-    transition: all 0.5s ease;
-    opacity: 0.3;
+    font-size: 1.5rem; margin: 20px 0;
+    color: rgba(255, 255, 255, 0.2); /* Dhundhla */
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    filter: blur(2px);
     transform: scale(0.9);
 }
 
-/* Active Class (Jab gaana waha pahuchega) */
+/* Active Lyric Style */
 .lyric-line.active {
     color: #fff;
-    text-shadow: 0 0 15px #ff4d6d;
-    opacity: 1;
-    transform: scale(1.1);
+    filter: blur(0px);
+    transform: scale(1.2);
     font-weight: bold;
+    text-shadow: 0 0 20px rgba(255, 77, 109, 0.8);
+}
+.highlight.active { color: #ff4d6d; font-size: 2rem; }
+
+/* Outro */
+.outro-section { min-height: 80vh; display: flex; justify-content: center; align-items: center; padding: 20px; }
+.glass-card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    padding: 40px; border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    text-align: center; max-width: 500px;
+}
+.neon-glow {
+    margin-top: 20px; font-size: 3rem; color: #fff;
+    text-shadow: 0 0 10px #ff4d6d, 0 0 20px #ff4d6d, 0 0 40px #ff00de;
+    animation: pulse 1.5s infinite alternate;
 }
 
-.highlight-text.active {
-    color: #ff4d6d;
-    font-size: 2.2rem;
-}
+/* Animations */
+@keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
+@keyframes pulse { from { text-shadow: 0 0 10px #ff4d6d; } to { text-shadow: 0 0 30px #ff00de; } }
 
-/* Gallery & Rest */
-.full-screen { min-height: 80vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
-.gallery { padding: 50px 0; text-align: center; }
-.cards-wrapper { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
-.card img { width: 150px; border-radius: 10px; border: 2px solid #fff; }
-.message-box { background: #111; padding: 30px; border-radius: 15px; border: 1px solid #333; }
+/* Mobile Optimizations */
+@media (max-width: 600px) {
+    .intro-section h1 { font-size: 2.8rem; }
+    .lyric-line { font-size: 1.3rem; }
+    .highlight.active { font-size: 1.6rem; }
+    }
