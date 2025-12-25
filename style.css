@@ -1,122 +1,157 @@
-/* --- 1. BASICS & THEME --- */
-* { margin: 0; padding: 0; box-sizing: border-box; }
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
 body {
-    background-color: #050505;
+    background: linear-gradient(135deg, #1a0b2e, #4a192c, #1a0b2e);
+    height: 100vh;
+    font-family: 'Poppins', sans-serif;
     color: white;
-    font-family: 'Montserrat', sans-serif;
-    overflow-x: hidden;
-    scroll-behavior: smooth;
+    overflow: hidden; /* Scroll band taaki app jaisa feel aaye */
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-/* Background Stars Animation */
-#stars {
-    width: 1px; height: 1px;
-    background: transparent;
-    box-shadow: 10px 10px #FFF, 20px 20px #FFF, 30px 30px #FFF; /* Simplified for demo */
-    animation: animStar 50s linear infinite;
-} 
-/* Note: For better stars, I am using a simple gradient below instead of complex box-shadow for performance */
-.bg-animation {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
-    background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+/* Overlay Screen */
+#overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: opacity 1s ease;
 }
 
-/* --- 2. START OVERLAY --- */
-#start-overlay {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: #000; z-index: 999;
-    display: flex; justify-content: center; align-items: center;
-    transition: opacity 1s ease-out;
+.heart-icon {
+    font-size: 4rem;
+    animation: heartbeat 1.5s infinite;
 }
-.center-box { text-align: center; }
-.center-box h1 { font-family: 'Dancing Script', cursive; font-size: 3rem; color: #ff4d6d; margin-bottom: 10px; }
-.sub-text { font-size: 0.8rem; color: #888; margin-bottom: 20px; }
 
-#play-btn {
-    padding: 15px 40px; font-size: 1.2rem;
-    background: linear-gradient(45deg, #ff4d6d, #c9184a);
-    color: white; border: none; border-radius: 50px;
-    cursor: pointer; box-shadow: 0 0 20px rgba(255, 77, 109, 0.5);
-    transition: transform 0.2s;
-    font-family: 'Montserrat', sans-serif;
+#overlay p {
+    margin-top: 10px;
+    font-size: 1.2rem;
+    color: #ffcccb;
 }
-#play-btn:hover { transform: scale(1.1); }
 
-/* --- 3. MAIN CONTENT --- */
-.main-container { display: none; opacity: 0; transition: opacity 2s ease; }
-
-/* Intro */
-.intro-section { height: 80vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
-.intro-section h1 { font-family: 'Dancing Script', cursive; font-size: 4rem; line-height: 1.2; }
-.intro-section span { color: #ff4d6d; text-shadow: 0 0 15px #ff4d6d; }
-.fade-in { animation: fadeInUp 2s ease forwards; opacity: 0; transform: translateY(20px); }
-.delay { animation-delay: 1s; }
-
-/* Gallery */
-.gallery-section { padding: 50px 20px; text-align: center; }
-.section-title { font-size: 2rem; margin-bottom: 40px; color: #ffb3c1; }
-.photo-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; }
-
-.photo-card {
-    background: #fff; padding: 10px 10px 40px 10px;
-    width: 160px; border-radius: 5px;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.5);
-    transition: transform 0.3s, z-index 0.3s;
-    position: relative;
-}
-.photo-card img { width: 100%; border-radius: 3px; }
-.photo-card p { color: #333; font-family: 'Dancing Script', cursive; font-size: 1.2rem; margin-top: 10px; }
-.tilt-left { transform: rotate(-5deg); }
-.tilt-right { transform: rotate(5deg); }
-.photo-card:hover { transform: scale(1.1) rotate(0deg) !important; z-index: 10; }
-
-/* Lyrics (The Magic Part) */
-.lyrics-container {
-    padding: 100px 20px;
+/* Container */
+.container {
     text-align: center;
-    perspective: 500px;
-}
-.lyric-line {
-    font-size: 1.5rem; margin: 20px 0;
-    color: rgba(255, 255, 255, 0.2); /* Dhundhla */
-    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    filter: blur(2px);
-    transform: scale(0.9);
+    width: 90%;
+    max-width: 400px;
+    opacity: 0; /* Hidden initially */
+    transition: opacity 2s ease;
+    z-index: 10;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 90vh;
+    justify-content: space-between;
 }
 
-/* Active Lyric Style */
-.lyric-line.active {
+/* Typing Text */
+.typing-section h1 {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2.2rem;
+    color: #ff9a9e;
+    min-height: 60px;
+    text-shadow: 0 0 10px rgba(255, 154, 158, 0.5);
+}
+
+/* Photo Frame */
+.photo-frame {
+    width: 100%;
+    height: 300px;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(255, 192, 203, 0.4);
+    position: relative;
+    margin: 10px 0;
+    border: 3px solid rgba(255, 255, 255, 0.2);
+}
+
+.photo-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+
+.photo-frame img.active-photo {
+    opacity: 1;
+}
+
+.photo-caption {
+    font-size: 0.9rem;
+    color: #ddd;
+    margin-top: -10px;
+    margin-bottom: 10px;
+    font-style: italic;
+}
+
+/* Lyrics Styling */
+.lyrics-container {
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#lyrics {
+    font-size: 1.1rem;
     color: #fff;
-    filter: blur(0px);
-    transform: scale(1.2);
-    font-weight: bold;
-    text-shadow: 0 0 20px rgba(255, 77, 109, 0.8);
+    font-weight: 500;
+    text-align: center;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    transition: transform 0.3s ease, opacity 0.3s ease;
 }
-.highlight.active { color: #ff4d6d; font-size: 2rem; }
 
-/* Outro */
-.outro-section { min-height: 80vh; display: flex; justify-content: center; align-items: center; padding: 20px; }
-.glass-card {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    padding: 40px; border-radius: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    text-align: center; max-width: 500px;
-}
-.neon-glow {
-    margin-top: 20px; font-size: 3rem; color: #fff;
-    text-shadow: 0 0 10px #ff4d6d, 0 0 20px #ff4d6d, 0 0 40px #ff00de;
-    animation: pulse 1.5s infinite alternate;
+footer {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.5);
 }
 
 /* Animations */
-@keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
-@keyframes pulse { from { text-shadow: 0 0 10px #ff4d6d; } to { text-shadow: 0 0 30px #ff00de; } }
+@keyframes heartbeat {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
 
-/* Mobile Optimizations */
-@media (max-width: 600px) {
-    .intro-section h1 { font-size: 2.8rem; }
-    .lyric-line { font-size: 1.3rem; }
-    .highlight.active { font-size: 1.6rem; }
-    }
+/* Floating Hearts Background (Generated via CSS) */
+.background-elements {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.heart {
+    position: absolute;
+    color: rgba(255, 107, 129, 0.4);
+    font-size: 1.5rem;
+    animation: floatUp 10s linear infinite;
+    bottom: -10%;
+}
+
+@keyframes floatUp {
+    0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(-120vh) rotate(360deg); opacity: 0; }
+}
