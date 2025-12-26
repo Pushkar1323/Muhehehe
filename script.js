@@ -1,12 +1,9 @@
-// ========== LOADING FIX - SABSE PEHLE ========== 
-// Yeh line sabse important hai - loading stuck nahi hogi
+// ========== LOADING FIX ========== 
 (function() {
-    // Maximum 3 second wait, fir force hide
     setTimeout(function() {
         hidePreloader();
     }, 3000);
     
-    // Jab DOM ready ho tab bhi try karo
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', function() {
             setTimeout(hidePreloader, 2000);
@@ -31,8 +28,42 @@ function initPage() {
 
 // ========== VARIABLES ==========
 var currentPage = 1;
-var totalPages = 8;
+var totalPages = 9;
 var musicPlaying = false;
+var correctPassword = '2713';
+
+// ========== PASSWORD CHECK ==========
+function checkPassword() {
+    var input = document.getElementById('passwordInput');
+    var errorMsg = document.getElementById('errorMsg');
+    var lockContainer = document.querySelector('.lock-container');
+    
+    if (input.value === correctPassword) {
+        lockContainer.classList.add('success');
+        errorMsg.textContent = '✓ Correct! Opening... 💕';
+        errorMsg.style.color = '#4ecdc4';
+        
+        setTimeout(function() {
+            currentPage = 3;
+            showPage(currentPage);
+        }, 1000);
+    } else {
+        errorMsg.textContent = '❌ Wrong password! Try again 💔';
+        errorMsg.style.color = '#ff6b6b';
+        input.value = '';
+        input.style.animation = 'shake 0.5s ease';
+        setTimeout(function() {
+            input.style.animation = '';
+        }, 500);
+    }
+}
+
+// Enter key pe bhi password check ho
+document.addEventListener('keypress', function(e) {
+    if (e.key === 'Enter' && currentPage === 2) {
+        checkPassword();
+    }
+});
 
 // ========== FLOATING HEARTS ==========
 function createFloatingHearts() {
@@ -203,11 +234,18 @@ function showPage(pageNum) {
     var currentPageEl = document.getElementById('page' + pageNum);
     if (currentPageEl) currentPageEl.classList.add('active');
     
-    // Update navigation
+    // Update navigation (hide on password page)
     var prevBtn = document.getElementById('prevBtn');
     var nextBtn = document.getElementById('nextBtn');
-    if (prevBtn) prevBtn.style.display = pageNum > 1 ? 'block' : 'none';
-    if (nextBtn) nextBtn.style.display = pageNum < totalPages ? 'block' : 'none';
+    
+    if (pageNum === 2) {
+        // Password page - hide navigation
+        if (prevBtn) prevBtn.style.display = 'none';
+        if (nextBtn) nextBtn.style.display = 'none';
+    } else {
+        if (prevBtn) prevBtn.style.display = pageNum > 1 && pageNum !== 3 ? 'block' : 'none';
+        if (nextBtn) nextBtn.style.display = pageNum < totalPages ? 'block' : 'none';
+    }
     
     // Update dots
     var dots = document.querySelectorAll('.dot');
@@ -223,7 +261,7 @@ function showPage(pageNum) {
     switch(pageNum) {
         case 2:
             createStars('stars2');
-            animateCloser();
+            document.getElementById('passwordInput').focus();
             break;
         case 3:
             createStars('stars3');
@@ -252,6 +290,10 @@ function showPage(pageNum) {
             break;
         case 8:
             createStars('stars8');
+            animateCloser();
+            break;
+        case 9:
+            createStars('stars9');
             animateCatKiss();
             break;
     }
@@ -286,6 +328,10 @@ function startJourney() {
 
 function nextPage() {
     if (currentPage < totalPages) {
+        // Skip going back to password page
+        if (currentPage === 2) {
+            return; // Can't use next on password page
+        }
         currentPage++;
         showPage(currentPage);
     }
@@ -293,41 +339,12 @@ function nextPage() {
 
 function prevPage() {
     if (currentPage > 1) {
+        // Don't go back to password page
+        if (currentPage === 3) {
+            return;
+        }
         currentPage--;
         showPage(currentPage);
-    }
-}
-
-// ========== PAGE 2 - COME CLOSER ==========
-function animateCloser() {
-    var texts = ['closer1', 'closer2', 'closer3', 'closer4', 'closer5'];
-    
-    // Reset
-    for (var i = 0; i < texts.length; i++) {
-        var el = document.getElementById(texts[i]);
-        if (el) {
-            el.classList.remove('show');
-            el.style.fontSize = '3rem';
-        }
-    }
-    
-    var delay = 500;
-    for (var j = 0; j < texts.length; j++) {
-        (function(index) {
-            setTimeout(function() {
-                // Hide all
-                for (var k = 0; k < texts.length; k++) {
-                    var hideEl = document.getElementById(texts[k]);
-                    if (hideEl) hideEl.classList.remove('show');
-                }
-                // Show current
-                var showEl = document.getElementById(texts[index]);
-                if (showEl) {
-                    showEl.classList.add('show');
-                    showEl.style.fontSize = (2.5 + index * 0.5) + 'rem';
-                }
-            }, delay + (index * 1500));
-        })(j);
     }
 }
 
@@ -351,13 +368,11 @@ function animateWannaBeYours() {
     var delay = 500;
     for (var j = 0; j < items.length; j++) {
         (function(index) {
-            // Show text
             setTimeout(function() {
                 var t = document.getElementById(items[index].text);
                 if (t) t.classList.add('visible');
             }, delay + (index * 2600));
             
-            // Show photo
             setTimeout(function() {
                 var p = document.getElementById(items[index].photo);
                 if (p) p.classList.add('visible');
@@ -370,7 +385,6 @@ function animateWannaBeYours() {
 function animateHindiLyrics() {
     var lines = ['hl1', 'hl2', 'hl3', 'hl4', 'hl5', 'hl6', 'hl7'];
     
-    // Reset
     for (var i = 0; i < lines.length; i++) {
         var el = document.getElementById(lines[i]);
         if (el) el.classList.remove('visible');
@@ -404,9 +418,9 @@ function animateGallery() {
     }
 }
 
-// ========== PAGE 6 - REASONS ==========
+// ========== PAGE 6 - REASONS (UPDATED - 7 ITEMS) ==========
 function animateReasons() {
-    var reasons = ['r1', 'r2', 'r3', 'r4', 'r5', 'r6'];
+    var reasons = ['r1', 'r2', 'r3', 'r4', 'r5', 'r6', 'r7'];
     
     for (var i = 0; i < reasons.length; i++) {
         var el = document.getElementById(reasons[i]);
@@ -419,7 +433,7 @@ function animateReasons() {
             setTimeout(function() {
                 var r = document.getElementById(reasons[index]);
                 if (r) r.classList.add('visible');
-            }, delay + (index * 500));
+            }, delay + (index * 400));
         })(j);
     }
 }
@@ -443,14 +457,43 @@ function createFloatingHeartsPage6() {
     }
 }
 
-// ========== PAGE 8 - CAT KISS FULLSCREEN ==========
+// ========== PAGE 8 - COME CLOSER ==========
+function animateCloser() {
+    var texts = ['closer1', 'closer2', 'closer3', 'closer4', 'closer5'];
+    
+    for (var i = 0; i < texts.length; i++) {
+        var el = document.getElementById(texts[i]);
+        if (el) {
+            el.classList.remove('show');
+            el.style.fontSize = '3rem';
+        }
+    }
+    
+    var delay = 500;
+    for (var j = 0; j < texts.length; j++) {
+        (function(index) {
+            setTimeout(function() {
+                for (var k = 0; k < texts.length; k++) {
+                    var hideEl = document.getElementById(texts[k]);
+                    if (hideEl) hideEl.classList.remove('show');
+                }
+                var showEl = document.getElementById(texts[index]);
+                if (showEl) {
+                    showEl.classList.add('show');
+                    showEl.style.fontSize = (2.5 + index * 0.5) + 'rem';
+                }
+            }, delay + (index * 1500));
+        })(j);
+    }
+}
+
+// ========== PAGE 9 - CAT KISS ==========
 function animateCatKiss() {
     var texts = ['kiss1', 'kiss2', 'kiss3'];
     var intro = document.getElementById('kissIntro');
     var videoWrapper = document.getElementById('videoWrapper');
     var video = document.getElementById('catVideo');
     
-    // Reset
     if (intro) intro.style.display = 'block';
     if (videoWrapper) videoWrapper.classList.remove('show');
     for (var i = 0; i < texts.length; i++) {
@@ -462,19 +505,16 @@ function animateCatKiss() {
     for (var j = 0; j < texts.length; j++) {
         (function(index) {
             setTimeout(function() {
-                // Hide all
                 for (var k = 0; k < texts.length; k++) {
                     var hideEl = document.getElementById(texts[k]);
                     if (hideEl) hideEl.classList.remove('show');
                 }
-                // Show current
                 var showEl = document.getElementById(texts[index]);
                 if (showEl) showEl.classList.add('show');
-            }, delay + (index * 2000));
+            }, delay + (index * 1500));
         })(j);
     }
     
-    // Show video after all texts
     setTimeout(function() {
         if (intro) intro.style.display = 'none';
         if (videoWrapper) videoWrapper.classList.add('show');
@@ -486,19 +526,17 @@ function animateCatKiss() {
             });
         }
         createEmojiRain();
-    }, delay + (texts.length * 2000) + 500);
+    }, delay + (texts.length * 1500) + 500);
 }
 
 // ========== EVENT LISTENERS ==========
 document.addEventListener('DOMContentLoaded', function() {
     
-    // Navigation buttons
     var prevBtn = document.getElementById('prevBtn');
     var nextBtn = document.getElementById('nextBtn');
     if (prevBtn) prevBtn.addEventListener('click', prevPage);
     if (nextBtn) nextBtn.addEventListener('click', nextPage);
     
-    // Fullscreen button
     var fullscreenBtn = document.getElementById('fullscreenBtn');
     if (fullscreenBtn) {
         fullscreenBtn.addEventListener('click', function() {
@@ -517,7 +555,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Replay button
     var replayBtn = document.getElementById('replayBtn');
     if (replayBtn) {
         replayBtn.addEventListener('click', function() {
@@ -529,7 +566,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Music button
     var musicBtn = document.getElementById('musicBtn');
     if (musicBtn) {
         musicBtn.addEventListener('click', function() {
@@ -554,11 +590,16 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Dot navigation
+    // Dot navigation (but not for password page)
     var dots = document.querySelectorAll('.dot');
     for (var i = 0; i < dots.length; i++) {
         (function(index) {
             dots[index].addEventListener('click', function() {
+                // Don't allow going back to password page
+                if (index === 1) return;
+                // If not unlocked yet, can't skip
+                if (currentPage === 2 && index > 1) return;
+                
                 currentPage = index + 1;
                 showPage(currentPage);
             });
@@ -567,6 +608,8 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Keyboard navigation
     document.addEventListener('keydown', function(e) {
+        if (currentPage === 2) return; // No keyboard nav on password page
+        
         if (e.key === 'ArrowRight' || e.key === ' ') {
             e.preventDefault();
             nextPage();
@@ -576,7 +619,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // Touch/Swipe navigation
+    // Swipe navigation
     var touchStartX = 0;
     var touchEndX = 0;
     
@@ -585,6 +628,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }, { passive: true });
     
     document.addEventListener('touchend', function(e) {
+        if (currentPage === 2) return; // No swipe on password page
+        
         touchEndX = e.changedTouches[0].screenX;
         var diff = touchStartX - touchEndX;
         
@@ -602,3 +647,4 @@ document.addEventListener('DOMContentLoaded', function() {
 window.startJourney = startJourney;
 window.nextPage = nextPage;
 window.prevPage = prevPage;
+window.checkPassword = checkPassword;
