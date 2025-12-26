@@ -40,15 +40,32 @@
         </div>
     </div>
 
-    <!-- Page 2 - Come Closer -->
+    <!-- Page 2 - Password Lock (NEW!) -->
     <div class="page page2" id="page2">
         <div class="stars" id="stars2"></div>
-        <div class="aurora"></div>
-        <p class="closer-text" id="closer1">Hey...</p>
-        <p class="closer-text" id="closer2">Zara paas aao... 👀</p>
-        <p class="closer-text" id="closer3">Aur paas...</p>
-        <p class="closer-text" id="closer4">Thoda aur... 🥺</p>
-        <p class="closer-text" id="closer5">Perfect! Ab dekho... 💕</p>
+        <div class="lock-container">
+            <div class="lock-icon">🔐</div>
+            <h2>This is Private! 💕</h2>
+            <p class="lock-subtitle">Enter the secret code to continue...</p>
+            
+            <div class="password-box">
+                <input type="password" id="passwordInput" class="password-input" placeholder="Enter Password" maxlength="4">
+                <button class="unlock-btn" onclick="checkPassword()">Unlock 💖</button>
+            </div>
+            
+            <div class="hint-box">
+                <p class="hint-label">💡 Hint:</p>
+                <p class="hint-text">Appuchu bday 👅 date</p>
+            </div>
+            
+            <p class="error-msg" id="errorMsg"></p>
+            
+            <div class="heart-decoration">
+                <span>💕</span>
+                <span>💖</span>
+                <span>💕</span>
+            </div>
+        </div>
     </div>
 
     <!-- Page 3 - Wanna Be Yours + Photos -->
@@ -118,66 +135,81 @@
         </div>
     </div>
 
-    <!-- Page 6 - Reasons I Love You -->
+    <!-- Page 6 - Reasons I Love You (UPDATED) -->
     <div class="page page6" id="page6">
         <div class="hearts-floating" id="heartsPage6"></div>
         <div class="reasons-container">
             <h2 class="reasons-title">Why I Love You 💕</h2>
             <div class="reason-item" id="r1">
                 <span class="reason-num">1</span>
-                <span class="reason-text">Tumhari smile duniya ki sabse pyaari hai 😊</span>
+                <span class="reason-text">You understand me like no one else 🥺</span>
             </div>
             <div class="reason-item" id="r2">
                 <span class="reason-num">2</span>
-                <span class="reason-text">Tum meri har baat samajh lete ho 🥺</span>
+                <span class="reason-text">You make me feel so special 💫</span>
             </div>
             <div class="reason-item" id="r3">
                 <span class="reason-num">3</span>
-                <span class="reason-text">Tumhare saath time kaise guzarta hai pata nahi chalta ⏰</span>
+                <span class="reason-text">You are my whole world 🌍</span>
             </div>
             <div class="reason-item" id="r4">
                 <span class="reason-num">4</span>
-                <span class="reason-text">Tumhari awaaz sunke dil khush ho jaata hai 🎵</span>
+                <span class="reason-text">Time flies when I'm with you ⏰</span>
             </div>
             <div class="reason-item" id="r5">
                 <span class="reason-num">5</span>
-                <span class="reason-text">Tum meri duniya ho 🌍</span>
+                <span class="reason-text">Aapki choti choti chizze bhi dil chu rakhi hai 💗</span>
             </div>
             <div class="reason-item" id="r6">
+                <span class="reason-num">6</span>
+                <span class="reason-text">You are really so special to me ✨</span>
+            </div>
+            <div class="reason-item" id="r7">
                 <span class="reason-num">∞</span>
                 <span class="reason-text">Because you are YOU! 💖</span>
             </div>
         </div>
     </div>
 
-    <!-- Page 7 - Final Message -->
+    <!-- Page 7 - Final Message (UPDATED - 2026) -->
     <div class="page page7" id="page7">
         <div class="stars" id="stars7"></div>
         <div class="fireworks" id="fireworks"></div>
         <div class="final-message">
             <div class="year-display">
-                <span class="year-old">2024</span>
+                <span class="year-old">2025</span>
                 <span class="year-arrow">→</span>
-                <span class="year-new">2025</span>
+                <span class="year-new">2026</span>
             </div>
             <h1>Happy New Year! 🎉</h1>
-            <p id="fm1">Is naye saal mein bhi tumhare saath hazaaron memories banana chahta hoon...</p>
-            <p id="fm2">Tum mere liye bahut special ho... 💕</p>
-            <p id="fm3">Aur hamesha rahoge...</p>
-            <p id="fm4">Thank you for being in my life!</p>
+            <p id="fm1">Yeh naya saal bhi dono saath enjoy karenge... 💕</p>
+            <p id="fm2">Aur boht saari beautiful memories banayenge... ✨</p>
+            <p id="fm3">Aap sachi mein boht special ho mere liye... 🥺</p>
+            <p id="fm4">Har pal tumhare saath guzaarna chahta hoon...</p>
             <p class="love-text" id="fm5">I Love You! ❤️</p>
             <div class="heart-beat">💓</div>
         </div>
     </div>
 
-    <!-- Page 8 - Cat Kiss FULLSCREEN -->
+    <!-- Page 8 - Come Closer (MOVED HERE) -->
     <div class="page page8" id="page8">
         <div class="stars" id="stars8"></div>
+        <div class="aurora"></div>
+        <p class="closer-text" id="closer1">Hey...</p>
+        <p class="closer-text" id="closer2">Zara paas aao... 👀</p>
+        <p class="closer-text" id="closer3">Aur paas...</p>
+        <p class="closer-text" id="closer4">Thoda aur... 🥺</p>
+        <p class="closer-text" id="closer5">Aankhen band karo... 😚</p>
+    </div>
+
+    <!-- Page 9 - Cat Kiss FULLSCREEN -->
+    <div class="page page9" id="page9">
+        <div class="stars" id="stars9"></div>
         <div class="cat-container" id="catContainer">
             <div class="kiss-intro" id="kissIntro">
-                <p class="kiss-text" id="kiss1">Ek last cheez... 👀</p>
-                <p class="kiss-text" id="kiss2">Aankhen band karo... 😊</p>
-                <p class="kiss-text" id="kiss3">3... 2... 1... 😚</p>
+                <p class="kiss-text" id="kiss1">Ready? 👀</p>
+                <p class="kiss-text" id="kiss2">3... 2... 1...</p>
+                <p class="kiss-text" id="kiss3">💋</p>
             </div>
             <div class="video-wrapper" id="videoWrapper">
                 <video class="cat-video" id="catVideo" playsinline preload="none">
@@ -187,6 +219,7 @@
                     <button class="video-btn fullscreen-btn" id="fullscreenBtn">📺 FULLSCREEN</button>
                     <button class="video-btn replay-btn" id="replayBtn">🔄 Replay</button>
                 </div>
+                <p class="final-kiss-text">I Love You Forever! 💕</p>
             </div>
         </div>
     </div>
@@ -205,8 +238,9 @@
         <span class="dot"></span>
         <span class="dot"></span>
         <span class="dot"></span>
+        <span class="dot"></span>
     </div>
 
     <script src="script.js"></script>
 </body>
-    </html>
+                </html>
