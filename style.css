@@ -300,31 +300,157 @@ body {
     50% { box-shadow: 0 0 0 20px rgba(255,255,255,0); }
 }
 
-/* ========== PAGE 2 - COME CLOSER ========== */
+/* ========== PAGE 2 - PASSWORD LOCK (NEW!) ========== */
 .page2 {
-    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+    background: linear-gradient(135deg, #1a1a2e, #16213e, #0f0c29);
 }
 
-.closer-text {
-    font-size: 3rem;
-    color: white;
+.lock-container {
     text-align: center;
-    opacity: 0;
-    position: absolute;
-    font-family: 'Great Vibes', cursive;
-    transition: all 0.5s ease;
-    text-shadow: 0 0 30px rgba(255,107,107,0.5);
+    z-index: 10;
+    padding: 30px;
+    max-width: 400px;
 }
 
-.closer-text.show {
-    opacity: 1;
-    animation: textPop 0.5s ease;
+.lock-icon {
+    font-size: 80px;
+    margin-bottom: 20px;
+    animation: lockShake 2s ease-in-out infinite;
 }
 
-@keyframes textPop {
-    0% { transform: scale(0.3); }
-    60% { transform: scale(1.2); }
-    100% { transform: scale(1); }
+@keyframes lockShake {
+    0%, 100% { transform: rotate(-5deg); }
+    50% { transform: rotate(5deg); }
+}
+
+.lock-container h2 {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2.5rem;
+    color: #ff6b6b;
+    margin-bottom: 10px;
+    text-shadow: 0 0 20px rgba(255,107,107,0.5);
+}
+
+.lock-subtitle {
+    color: rgba(255,255,255,0.7);
+    font-size: 1rem;
+    margin-bottom: 30px;
+}
+
+.password-box {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.password-input {
+    padding: 18px 25px;
+    font-size: 1.5rem;
+    text-align: center;
+    background: rgba(255,255,255,0.1);
+    border: 2px solid rgba(255,255,255,0.3);
+    border-radius: 50px;
+    color: white;
+    letter-spacing: 10px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.password-input:focus {
+    outline: none;
+    border-color: #ff6b6b;
+    box-shadow: 0 0 20px rgba(255,107,107,0.4);
+}
+
+.password-input::placeholder {
+    letter-spacing: 2px;
+    opacity: 0.5;
+}
+
+.unlock-btn {
+    padding: 15px 40px;
+    font-size: 1.2rem;
+    background: linear-gradient(135deg, #ff6b6b, #ee0979);
+    border: none;
+    color: white;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+}
+
+.unlock-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 30px rgba(255,107,107,0.5);
+}
+
+.hint-box {
+    background: rgba(255,255,255,0.1);
+    padding: 15px 25px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    border: 1px solid rgba(255,255,255,0.2);
+}
+
+.hint-label {
+    color: #ffd700;
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+}
+
+.hint-text {
+    color: white;
+    font-size: 1.1rem;
+}
+
+.error-msg {
+    color: #ff6b6b;
+    font-size: 1rem;
+    min-height: 25px;
+    animation: shake 0.5s ease;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-10px); }
+    75% { transform: translateX(10px); }
+}
+
+.heart-decoration {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    font-size: 30px;
+}
+
+.heart-decoration span {
+    animation: heartFloat 2s ease-in-out infinite;
+}
+
+.heart-decoration span:nth-child(2) {
+    animation-delay: 0.3s;
+}
+
+.heart-decoration span:nth-child(3) {
+    animation-delay: 0.6s;
+}
+
+@keyframes heartFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+/* Password Success Animation */
+.lock-container.success .lock-icon {
+    animation: unlockSuccess 0.5s ease forwards;
+}
+
+@keyframes unlockSuccess {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.3); }
+    100% { transform: scale(1); opacity: 0.5; }
 }
 
 /* ========== PAGE 3 - WANNA BE YOURS ========== */
@@ -548,7 +674,7 @@ body {
     font-size: 1rem;
 }
 
-/* ========== PAGE 6 - REASONS ========== */
+/* ========== PAGE 6 - REASONS (UPDATED - 7 ITEMS) ========== */
 .page6 {
     background: linear-gradient(135deg, #ee0979, #ff6a00);
     padding: 40px 20px;
@@ -565,15 +691,15 @@ body {
     font-family: 'Dancing Script', cursive;
     font-size: 3rem;
     color: white;
-    margin-bottom: 40px;
+    margin-bottom: 35px;
     text-shadow: 0 5px 20px rgba(0,0,0,0.2);
 }
 
 .reason-item {
     background: rgba(255,255,255,0.2);
-    padding: 18px 25px;
+    padding: 16px 22px;
     border-radius: 50px;
-    margin: 18px 0;
+    margin: 15px 0;
     color: white;
     backdrop-filter: blur(10px);
     opacity: 0;
@@ -609,9 +735,9 @@ body {
 }
 
 .reason-num {
-    width: 45px;
-    height: 45px;
-    min-width: 45px;
+    width: 42px;
+    height: 42px;
+    min-width: 42px;
     background: white;
     color: #ee0979;
     border-radius: 50%;
@@ -619,15 +745,15 @@ body {
     justify-content: center;
     align-items: center;
     font-weight: bold;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
 }
 
 .reason-text {
-    font-size: 1.05rem;
+    font-size: 1rem;
     text-align: left;
 }
 
-/* ========== PAGE 7 - FINAL MESSAGE ========== */
+/* ========== PAGE 7 - FINAL MESSAGE (UPDATED - 2026) ========== */
 .page7 {
     background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
     padding: 40px 20px;
@@ -661,7 +787,7 @@ body {
 }
 
 .year-display {
-    font-size: 1.8rem;
+    font-size: 2rem;
     color: white;
     margin-bottom: 20px;
     display: flex;
@@ -673,10 +799,12 @@ body {
 .year-old {
     opacity: 0.5;
     text-decoration: line-through;
+    color: #ff6b6b;
 }
 
 .year-arrow {
     animation: arrowMove 1s ease infinite;
+    color: #ffd700;
 }
 
 @keyframes arrowMove {
@@ -687,7 +815,14 @@ body {
 .year-new {
     color: #ffd700;
     font-weight: bold;
-    text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+    font-size: 2.5rem;
+    text-shadow: 0 0 30px rgba(255, 215, 0, 0.6);
+    animation: yearGlow 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes yearGlow {
+    from { text-shadow: 0 0 20px rgba(255, 215, 0, 0.5); }
+    to { text-shadow: 0 0 40px rgba(255, 215, 0, 1), 0 0 60px rgba(255, 215, 0, 0.5); }
 }
 
 .final-message h1 {
@@ -732,8 +867,35 @@ body {
     animation: heartbeat 1s infinite;
 }
 
-/* ========== PAGE 8 - CAT KISS FULLSCREEN ========== */
+/* ========== PAGE 8 - COME CLOSER (MOVED) ========== */
 .page8 {
+    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+}
+
+.closer-text {
+    font-size: 3rem;
+    color: white;
+    text-align: center;
+    opacity: 0;
+    position: absolute;
+    font-family: 'Great Vibes', cursive;
+    transition: all 0.5s ease;
+    text-shadow: 0 0 30px rgba(255,107,107,0.5);
+}
+
+.closer-text.show {
+    opacity: 1;
+    animation: textPop 0.5s ease;
+}
+
+@keyframes textPop {
+    0% { transform: scale(0.3); }
+    60% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+/* ========== PAGE 9 - CAT KISS FULLSCREEN ========== */
+.page9 {
     background: linear-gradient(135deg, #1a1a2e, #16213e);
 }
 
@@ -756,7 +918,7 @@ body {
 
 .kiss-text {
     font-family: 'Great Vibes', cursive;
-    font-size: 3rem;
+    font-size: 3.5rem;
     color: white;
     position: absolute;
     left: 50%;
@@ -792,7 +954,7 @@ body {
 .cat-video {
     width: 100%;
     max-width: 90vw;
-    max-height: 70vh;
+    max-height: 60vh;
     border-radius: 20px;
     box-shadow: 0 30px 80px rgba(255,107,107,0.5);
     border: 4px solid rgba(255,255,255,0.3);
@@ -845,6 +1007,14 @@ body {
     border: 2px solid white;
 }
 
+.final-kiss-text {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2rem;
+    color: #ff6b6b;
+    margin-top: 20px;
+    animation: fadeInUp 1s ease 1s both, glowText 2s ease-in-out infinite alternate;
+}
+
 /* ========== NAVIGATION ========== */
 .nav-btn {
     position: fixed;
@@ -878,13 +1048,13 @@ body {
     left: 50%;
     transform: translateX(-50%);
     display: flex;
-    gap: 10px;
+    gap: 8px;
     z-index: 100;
 }
 
 .dot {
-    width: 12px;
-    height: 12px;
+    width: 10px;
+    height: 10px;
     background: rgba(255,255,255,0.3);
     border-radius: 50%;
     cursor: pointer;
@@ -970,6 +1140,9 @@ body {
     .welcome-text > p { font-size: 1.1rem; }
     .start-btn { padding: 15px 35px; font-size: 1rem; }
     
+    .lock-container h2 { font-size: 2rem; }
+    .password-input { font-size: 1.2rem; letter-spacing: 8px; }
+    
     .wanna-text { font-size: 2.5rem; }
     .photo-frame { width: 200px; height: 200px; }
     
@@ -989,11 +1162,13 @@ body {
     .next-btn { right: 10px; }
     
     .page-indicator { bottom: 20px; }
-    .dot { width: 10px; height: 10px; }
+    .dot { width: 8px; height: 8px; }
     
     .final-message h1 { font-size: 2.5rem; }
     .final-message p { font-size: 1rem; }
     .love-text { font-size: 2rem !important; }
+    .year-display { font-size: 1.5rem; }
+    .year-new { font-size: 2rem; }
     
     .reasons-title { font-size: 2.5rem; }
     .reason-item { 
@@ -1007,4 +1182,5 @@ body {
     
     .video-btn { padding: 12px 25px; font-size: 1rem; }
     .fullscreen-btn { padding: 15px 35px; }
+    .final-kiss-text { font-size: 1.5rem; }
     }
