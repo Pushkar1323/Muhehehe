@@ -64,30 +64,24 @@ function revealSecret() {
     footer.classList.add('show');
 }
 
-// ========== VIRTUAL HUG ==========
+// ========== VIRTUAL HUG (WITH GIF) ==========
 function sendHug() {
     var hugBox = document.getElementById('hugBox');
-    var hugEmoji = document.getElementById('hugEmoji');
-    var hugText = document.getElementById('hugText');
+    var hugGifContainer = document.getElementById('hugGifContainer');
     var hugAgainBtn = document.getElementById('hugAgainBtn');
     
-    hugBox.classList.add('hugged');
-    hugEmoji.classList.add('hugging');
-    hugEmoji.textContent = '🫂';
-    hugText.style.display = 'none';
+    hugBox.classList.add('hide');
+    hugGifContainer.classList.add('show');
     hugAgainBtn.classList.add('show');
 }
 
 function resetHug() {
     var hugBox = document.getElementById('hugBox');
-    var hugEmoji = document.getElementById('hugEmoji');
-    var hugText = document.getElementById('hugText');
+    var hugGifContainer = document.getElementById('hugGifContainer');
     var hugAgainBtn = document.getElementById('hugAgainBtn');
     
-    hugBox.classList.remove('hugged');
-    hugEmoji.classList.remove('hugging');
-    hugEmoji.textContent = '🤗';
-    hugText.style.display = 'block';
+    hugBox.classList.remove('hide');
+    hugGifContainer.classList.remove('show');
     hugAgainBtn.classList.remove('show');
 }
 
@@ -577,7 +571,7 @@ document.addEventListener('DOMContentLoaded', function() {
     for (var i = 0; i < dots.length; i++) {
         (function(index) {
             dots[index].addEventListener('click', function() {
-                if (index === 1) return; // Password page
+                if (index === 1) return;
                 if (currentPage === 2 && index > 1) return;
                 currentPage = index + 1;
                 showPage(currentPage);
