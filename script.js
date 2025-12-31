@@ -1,9 +1,6 @@
 // ========== LOADING FIX ========== 
 (function() {
-    setTimeout(function() {
-        hidePreloader();
-    }, 3000);
-    
+    setTimeout(hidePreloader, 3000);
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', function() {
             setTimeout(hidePreloader, 2000);
@@ -28,7 +25,7 @@ function initPage() {
 
 // ========== VARIABLES ==========
 var currentPage = 1;
-var totalPages = 9;
+var totalPages = 13;
 var musicPlaying = false;
 var correctPassword = '2713';
 
@@ -36,42 +33,69 @@ var correctPassword = '2713';
 function checkPassword() {
     var input = document.getElementById('passwordInput');
     var errorMsg = document.getElementById('errorMsg');
-    var lockContainer = document.querySelector('.lock-container');
     
     if (input.value === correctPassword) {
-        lockContainer.classList.add('success');
-        errorMsg.textContent = '✓ Correct! Opening... 💕';
+        errorMsg.textContent = '✓ Correct! 💕';
         errorMsg.style.color = '#4ecdc4';
-        
         setTimeout(function() {
             currentPage = 3;
             showPage(currentPage);
         }, 1000);
     } else {
-        errorMsg.textContent = '❌ Wrong password! Try again 💔';
-        errorMsg.style.color = '#ff6b6b';
+        errorMsg.textContent = '❌ Wrong password!';
         input.value = '';
         input.style.animation = 'shake 0.5s ease';
-        setTimeout(function() {
-            input.style.animation = '';
-        }, 500);
+        setTimeout(function() { input.style.animation = ''; }, 500);
     }
 }
 
-// Enter key pe bhi password check ho
 document.addEventListener('keypress', function(e) {
-    if (e.key === 'Enter' && currentPage === 2) {
-        checkPassword();
-    }
+    if (e.key === 'Enter' && currentPage === 2) checkPassword();
 });
 
-// ========== FLOATING HEARTS ==========
+// ========== SECRET REVEAL ==========
+function revealSecret() {
+    var front = document.getElementById('secretFront');
+    var back = document.getElementById('secretBack');
+    var footer = document.getElementById('secretFooter');
+    
+    front.classList.add('hide');
+    back.classList.add('show');
+    footer.classList.add('show');
+}
+
+// ========== VIRTUAL HUG ==========
+function sendHug() {
+    var hugBox = document.getElementById('hugBox');
+    var hugEmoji = document.getElementById('hugEmoji');
+    var hugText = document.getElementById('hugText');
+    var hugAgainBtn = document.getElementById('hugAgainBtn');
+    
+    hugBox.classList.add('hugged');
+    hugEmoji.classList.add('hugging');
+    hugEmoji.textContent = '🫂';
+    hugText.style.display = 'none';
+    hugAgainBtn.classList.add('show');
+}
+
+function resetHug() {
+    var hugBox = document.getElementById('hugBox');
+    var hugEmoji = document.getElementById('hugEmoji');
+    var hugText = document.getElementById('hugText');
+    var hugAgainBtn = document.getElementById('hugAgainBtn');
+    
+    hugBox.classList.remove('hugged');
+    hugEmoji.classList.remove('hugging');
+    hugEmoji.textContent = '🤗';
+    hugText.style.display = 'block';
+    hugAgainBtn.classList.remove('show');
+}
+
+// ========== CREATE ELEMENTS ==========
 function createFloatingHearts() {
     var container = document.getElementById('heartsBg');
     if (!container) return;
-    
-    var hearts = ['💕', '💖', '💗', '💓', '💝', '❤️', '🥰', '😘', '💘'];
-    
+    var hearts = ['💕', '💖', '💗', '💓', '💝', '❤️', '🥰', '😘'];
     for (var i = 0; i < 25; i++) {
         var heart = document.createElement('span');
         heart.className = 'floating-heart';
@@ -84,30 +108,24 @@ function createFloatingHearts() {
     }
 }
 
-// ========== STARS ==========
 function createStars(containerId) {
     var container = document.getElementById(containerId);
     if (!container) return;
     container.innerHTML = '';
-    
-    for (var i = 0; i < 120; i++) {
+    for (var i = 0; i < 100; i++) {
         var star = document.createElement('div');
         star.className = 'star';
         star.style.left = Math.random() * 100 + '%';
         star.style.top = Math.random() * 100 + '%';
-        star.style.width = (Math.random() * 3 + 1) + 'px';
-        star.style.height = star.style.width;
         star.style.animationDelay = Math.random() * 3 + 's';
         container.appendChild(star);
     }
 }
 
-// ========== BUBBLES ==========
 function createBubbles() {
     var container = document.getElementById('bubbles3');
     if (!container) return;
     container.innerHTML = '';
-    
     for (var i = 0; i < 15; i++) {
         var bubble = document.createElement('div');
         bubble.className = 'bubble';
@@ -120,27 +138,22 @@ function createBubbles() {
     }
 }
 
-// ========== FIREFLIES ==========
 function createFireflies() {
     var container = document.getElementById('fireflies4');
     if (!container) return;
     container.innerHTML = '';
-    
     for (var i = 0; i < 20; i++) {
         var firefly = document.createElement('div');
         firefly.className = 'firefly';
         firefly.style.left = Math.random() * 100 + '%';
         firefly.style.top = Math.random() * 100 + '%';
         firefly.style.animationDelay = Math.random() * 5 + 's';
-        firefly.style.animationDuration = (Math.random() * 3 + 4) + 's';
         container.appendChild(firefly);
     }
 }
 
-// ========== EMOJI RAIN ==========
 function createEmojiRain() {
-    var emojis = ['💕', '💖', '✨', '🎉', '💗', '🥰', '💝', '⭐', '🌟', '💫'];
-    
+    var emojis = ['💕', '💖', '✨', '🎉', '💗', '🥰', '💝', '⭐'];
     for (var i = 0; i < 40; i++) {
         (function(index) {
             setTimeout(function() {
@@ -148,116 +161,98 @@ function createEmojiRain() {
                 emoji.className = 'emoji-rain';
                 emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
                 emoji.style.left = Math.random() * 100 + '%';
-                emoji.style.animationDuration = (Math.random() * 2 + 3) + 's';
                 document.body.appendChild(emoji);
-                
-                setTimeout(function() { 
-                    if (emoji.parentNode) emoji.parentNode.removeChild(emoji); 
-                }, 5000);
+                setTimeout(function() { if (emoji.parentNode) emoji.remove(); }, 5000);
             }, index * 100);
         })(i);
     }
 }
 
-// ========== CONFETTI ==========
 function createConfetti() {
-    var colors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#96e6a1', '#ffeaa7', '#fd79a8', '#ffd700', '#a29bfe'];
-    
-    for (var i = 0; i < 120; i++) {
+    var colors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#ffeaa7', '#fd79a8', '#ffd700'];
+    for (var i = 0; i < 100; i++) {
         (function(index) {
             setTimeout(function() {
                 var confetti = document.createElement('div');
                 confetti.className = 'confetti';
                 confetti.style.left = Math.random() * 100 + '%';
                 confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-                confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
-                
-                if (Math.random() > 0.5) {
-                    confetti.style.borderRadius = '50%';
-                }
-                
                 document.body.appendChild(confetti);
-                
-                setTimeout(function() { 
-                    if (confetti.parentNode) confetti.parentNode.removeChild(confetti); 
-                }, 4000);
+                setTimeout(function() { if (confetti.parentNode) confetti.remove(); }, 4000);
             }, index * 25);
         })(i);
     }
 }
 
-// ========== FIREWORKS ==========
 var fireworkInterval;
 function createFireworks() {
     var container = document.getElementById('fireworks');
     if (!container) return;
-    
-    var colors = ['#ff6b6b', '#ffd700', '#4ecdc4', '#fd79a8', '#a29bfe'];
-    
+    var colors = ['#ff6b6b', '#ffd700', '#4ecdc4', '#fd79a8'];
     if (fireworkInterval) clearInterval(fireworkInterval);
-    
     fireworkInterval = setInterval(function() {
-        if (currentPage !== 7) {
-            clearInterval(fireworkInterval);
-            return;
-        }
-        
+        if (currentPage !== 11) { clearInterval(fireworkInterval); return; }
         var firework = document.createElement('div');
         firework.className = 'firework';
         firework.style.left = Math.random() * 80 + 10 + '%';
         firework.style.top = Math.random() * 50 + 10 + '%';
         firework.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-        firework.style.boxShadow = '0 0 10px ' + firework.style.backgroundColor;
         container.appendChild(firework);
-        
-        setTimeout(function() { 
-            if (firework.parentNode) firework.parentNode.removeChild(firework); 
-        }, 1200);
+        setTimeout(function() { if (firework.parentNode) firework.remove(); }, 1200);
     }, 500);
+}
+
+function createFloatingHeartsPage6() {
+    var container = document.getElementById('heartsPage6');
+    if (!container) return;
+    container.innerHTML = '';
+    var hearts = ['💕', '💖', '💗', '❤️'];
+    for (var i = 0; i < 15; i++) {
+        var heart = document.createElement('span');
+        heart.className = 'floating-heart';
+        heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+        heart.style.left = Math.random() * 100 + '%';
+        heart.style.animationDuration = (Math.random() * 4 + 4) + 's';
+        heart.style.animationDelay = Math.random() * 5 + 's';
+        container.appendChild(heart);
+    }
 }
 
 // ========== SHOW PAGE ==========
 function showPage(pageNum) {
     // Pause all audio
-    var bgMusic = document.getElementById('bgMusic');
-    var hindiMusic = document.getElementById('hindiMusic');
-    if (bgMusic) bgMusic.pause();
-    if (hindiMusic) hindiMusic.pause();
+    var audios = ['bgMusic', 'hindiMusic', 'balloonMusic'];
+    audios.forEach(function(id) {
+        var audio = document.getElementById(id);
+        if (audio) audio.pause();
+    });
     
     // Hide all pages
     var pages = document.querySelectorAll('.page');
-    for (var i = 0; i < pages.length; i++) {
-        pages[i].classList.remove('active');
-    }
+    for (var i = 0; i < pages.length; i++) pages[i].classList.remove('active');
     
     // Show current page
     var currentPageEl = document.getElementById('page' + pageNum);
     if (currentPageEl) currentPageEl.classList.add('active');
     
-    // Update navigation (hide on password page)
+    // Navigation
     var prevBtn = document.getElementById('prevBtn');
     var nextBtn = document.getElementById('nextBtn');
-    
     if (pageNum === 2) {
-        // Password page - hide navigation
-        if (prevBtn) prevBtn.style.display = 'none';
-        if (nextBtn) nextBtn.style.display = 'none';
+        prevBtn.style.display = 'none';
+        nextBtn.style.display = 'none';
     } else {
-        if (prevBtn) prevBtn.style.display = pageNum > 1 && pageNum !== 3 ? 'block' : 'none';
-        if (nextBtn) nextBtn.style.display = pageNum < totalPages ? 'block' : 'none';
+        prevBtn.style.display = pageNum > 1 && pageNum !== 3 ? 'block' : 'none';
+        nextBtn.style.display = pageNum < totalPages ? 'block' : 'none';
     }
     
-    // Update dots
+    // Dots
     var dots = document.querySelectorAll('.dot');
     for (var j = 0; j < dots.length; j++) {
-        if (j === pageNum - 1) {
-            dots[j].classList.add('active');
-        } else {
-            dots[j].classList.remove('active');
-        }
+        dots[j].classList.toggle('active', j === pageNum - 1);
     }
     
-    // Page specific animations
+    // Page specific
     switch(pageNum) {
         case 2:
             createStars('stars2');
@@ -280,20 +275,35 @@ function showPage(pageNum) {
             createEmojiRain();
             break;
         case 6:
-            animateReasons();
+            createStars('stars6');
             createFloatingHeartsPage6();
             break;
         case 7:
             createStars('stars7');
-            createConfetti();
-            createFireworks();
             break;
         case 8:
             createStars('stars8');
-            animateCloser();
+            animateLanguages();
             break;
         case 9:
             createStars('stars9');
+            resetHug();
+            break;
+        case 10:
+            createStars('stars10');
+            playAudio('balloonMusic');
+            break;
+        case 11:
+            createStars('stars11');
+            createConfetti();
+            createFireworks();
+            break;
+        case 12:
+            createStars('stars12');
+            animateCloser();
+            break;
+        case 13:
+            createStars('stars13');
             animateCatKiss();
             break;
     }
@@ -303,46 +313,29 @@ function showPage(pageNum) {
 function playAudio(id) {
     var audio = document.getElementById(id);
     if (!audio) return;
-    
     audio.currentTime = 0;
-    var playPromise = audio.play();
-    
-    if (playPromise !== undefined) {
-        playPromise.then(function() {
-            var btn = document.getElementById('musicBtn');
-            if (btn) {
-                btn.textContent = '🔊';
-                btn.classList.add('playing');
-            }
-            musicPlaying = true;
-        }).catch(function(e) {
-            console.log('Audio autoplay blocked');
-        });
-    }
+    audio.play().then(function() {
+        var btn = document.getElementById('musicBtn');
+        btn.textContent = '🔊';
+        btn.classList.add('playing');
+        musicPlaying = true;
+    }).catch(function() {});
 }
 
 // ========== NAVIGATION ==========
-function startJourney() {
-    nextPage();
+function startJourney() { 
+    nextPage(); 
 }
 
 function nextPage() {
-    if (currentPage < totalPages) {
-        // Skip going back to password page
-        if (currentPage === 2) {
-            return; // Can't use next on password page
-        }
+    if (currentPage < totalPages && currentPage !== 2) {
         currentPage++;
         showPage(currentPage);
     }
 }
 
 function prevPage() {
-    if (currentPage > 1) {
-        // Don't go back to password page
-        if (currentPage === 3) {
-            return;
-        }
+    if (currentPage > 1 && currentPage !== 3) {
         currentPage--;
         showPage(currentPage);
     }
@@ -357,7 +350,6 @@ function animateWannaBeYours() {
         { text: 'wanna4', photo: 'photo4' }
     ];
     
-    // Reset
     for (var i = 0; i < items.length; i++) {
         var textEl = document.getElementById(items[i].text);
         var photoEl = document.getElementById(items[i].photo);
@@ -418,46 +410,30 @@ function animateGallery() {
     }
 }
 
-// ========== PAGE 6 - REASONS (UPDATED - 7 ITEMS) ==========
-function animateReasons() {
-    var reasons = ['r1', 'r2', 'r3', 'r4', 'r5', 'r6', 'r7'];
+// ========== PAGE 8 - LANGUAGES ==========
+function animateLanguages() {
+    var langs = [];
+    for (var i = 1; i <= 10; i++) {
+        langs.push('lang' + i);
+    }
     
-    for (var i = 0; i < reasons.length; i++) {
-        var el = document.getElementById(reasons[i]);
+    for (var i = 0; i < langs.length; i++) {
+        var el = document.getElementById(langs[i]);
         if (el) el.classList.remove('visible');
     }
     
     var delay = 300;
-    for (var j = 0; j < reasons.length; j++) {
+    for (var j = 0; j < langs.length; j++) {
         (function(index) {
             setTimeout(function() {
-                var r = document.getElementById(reasons[index]);
-                if (r) r.classList.add('visible');
+                var lang = document.getElementById(langs[index]);
+                if (lang) lang.classList.add('visible');
             }, delay + (index * 400));
         })(j);
     }
 }
 
-function createFloatingHeartsPage6() {
-    var container = document.getElementById('heartsPage6');
-    if (!container) return;
-    container.innerHTML = '';
-    
-    var hearts = ['💕', '💖', '💗', '❤️'];
-    
-    for (var i = 0; i < 15; i++) {
-        var heart = document.createElement('span');
-        heart.className = 'floating-heart';
-        heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
-        heart.style.left = Math.random() * 100 + '%';
-        heart.style.animationDuration = (Math.random() * 4 + 4) + 's';
-        heart.style.animationDelay = Math.random() * 5 + 's';
-        heart.style.opacity = '0.4';
-        container.appendChild(heart);
-    }
-}
-
-// ========== PAGE 8 - COME CLOSER ==========
+// ========== PAGE 12 - COME CLOSER ==========
 function animateCloser() {
     var texts = ['closer1', 'closer2', 'closer3', 'closer4', 'closer5'];
     
@@ -487,7 +463,7 @@ function animateCloser() {
     }
 }
 
-// ========== PAGE 9 - CAT KISS ==========
+// ========== PAGE 13 - CAT KISS ==========
 function animateCatKiss() {
     var texts = ['kiss1', 'kiss2', 'kiss3'];
     var intro = document.getElementById('kissIntro');
@@ -521,9 +497,7 @@ function animateCatKiss() {
         if (video) {
             video.muted = false;
             video.currentTime = 0;
-            video.play().catch(function(e) {
-                console.log('Video play error');
-            });
+            video.play().catch(function() {});
         }
         createEmojiRain();
     }, delay + (texts.length * 1500) + 500);
@@ -532,11 +506,13 @@ function animateCatKiss() {
 // ========== EVENT LISTENERS ==========
 document.addEventListener('DOMContentLoaded', function() {
     
+    // Navigation buttons
     var prevBtn = document.getElementById('prevBtn');
     var nextBtn = document.getElementById('nextBtn');
     if (prevBtn) prevBtn.addEventListener('click', prevPage);
     if (nextBtn) nextBtn.addEventListener('click', nextPage);
     
+    // Fullscreen button
     var fullscreenBtn = document.getElementById('fullscreenBtn');
     if (fullscreenBtn) {
         fullscreenBtn.addEventListener('click', function() {
@@ -555,6 +531,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
+    // Replay button
     var replayBtn = document.getElementById('replayBtn');
     if (replayBtn) {
         replayBtn.addEventListener('click', function() {
@@ -566,20 +543,25 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
+    // Music button
     var musicBtn = document.getElementById('musicBtn');
     if (musicBtn) {
         musicBtn.addEventListener('click', function() {
             var bgMusic = document.getElementById('bgMusic');
             var hindiMusic = document.getElementById('hindiMusic');
+            var balloonMusic = document.getElementById('balloonMusic');
             
             if (musicPlaying) {
                 if (bgMusic) bgMusic.pause();
                 if (hindiMusic) hindiMusic.pause();
+                if (balloonMusic) balloonMusic.pause();
                 musicBtn.textContent = '🎵';
                 musicBtn.classList.remove('playing');
             } else {
                 if (currentPage === 4 && hindiMusic) {
                     hindiMusic.play();
+                } else if (currentPage === 10 && balloonMusic) {
+                    balloonMusic.play();
                 } else if (bgMusic) {
                     bgMusic.play();
                 }
@@ -590,16 +572,13 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Dot navigation (but not for password page)
+    // Dot navigation
     var dots = document.querySelectorAll('.dot');
     for (var i = 0; i < dots.length; i++) {
         (function(index) {
             dots[index].addEventListener('click', function() {
-                // Don't allow going back to password page
-                if (index === 1) return;
-                // If not unlocked yet, can't skip
+                if (index === 1) return; // Password page
                 if (currentPage === 2 && index > 1) return;
-                
                 currentPage = index + 1;
                 showPage(currentPage);
             });
@@ -608,8 +587,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Keyboard navigation
     document.addEventListener('keydown', function(e) {
-        if (currentPage === 2) return; // No keyboard nav on password page
-        
+        if (currentPage === 2) return;
         if (e.key === 'ArrowRight' || e.key === ' ') {
             e.preventDefault();
             nextPage();
@@ -621,30 +599,26 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Swipe navigation
     var touchStartX = 0;
-    var touchEndX = 0;
-    
     document.addEventListener('touchstart', function(e) {
         touchStartX = e.changedTouches[0].screenX;
     }, { passive: true });
     
     document.addEventListener('touchend', function(e) {
-        if (currentPage === 2) return; // No swipe on password page
-        
-        touchEndX = e.changedTouches[0].screenX;
+        if (currentPage === 2) return;
+        var touchEndX = e.changedTouches[0].screenX;
         var diff = touchStartX - touchEndX;
-        
         if (Math.abs(diff) > 50) {
-            if (diff > 0) {
-                nextPage();
-            } else {
-                prevPage();
-            }
+            if (diff > 0) nextPage();
+            else prevPage();
         }
     }, { passive: true });
 });
 
-// Make functions global
+// Global functions
 window.startJourney = startJourney;
 window.nextPage = nextPage;
 window.prevPage = prevPage;
 window.checkPassword = checkPassword;
+window.revealSecret = revealSecret;
+window.sendHug = sendHug;
+window.resetHug = resetHug;
