@@ -114,29 +114,30 @@
         </div>
     </div>
 
-    <!-- Page 5 - Photo Gallery -->
-<div class="page page5" id="page5">
-    <div class="gradient-bg"></div>
-    <h2 class="gallery-title">Our Beautiful Memories 📸</h2>
-    <div class="photo-grid" id="photoGrid">
-        <div class="photo-card">
-            <img src="photo5.jpg" alt="Memory" onerror="this.src='https://via.placeholder.com/300x200/ff6b6b/ffffff?text=Appu+1'">
-            <p>Myyy Appuu 💋</p>
-        </div>
-        <div class="photo-card">
-            <img src="photo6.jpg" alt="Memory" onerror="this.src='https://via.placeholder.com/300x200/764ba2/ffffff?text=Appu+2'">
-            <p>Mwahhhh 😘</p>
-        </div>
-        <div class="photo-card">
-            <img src="photo7.jpg" alt="Memory" onerror="this.src='https://via.placeholder.com/300x200/667eea/ffffff?text=Appu+3'">
-            <p>Kitte cutuuu ho aap 👅</p>
-        </div>
-        <div class="photo-card">
-            <img src="photo8.jpg" alt="Memory" onerror="this.src='https://via.placeholder.com/300x200/4ca1af/ffffff?text=Appu+4'">
-            <p>Chmak Chloo 😝</p>
+    <!-- Page 5 - Photo Gallery (UPDATED) -->
+    <div class="page page5" id="page5">
+        <div class="gradient-bg"></div>
+        <h2 class="gallery-title">Our Beautiful Memories 📸</h2>
+        <div class="photo-grid" id="photoGrid">
+            <div class="photo-card">
+                <img src="photo5.jpg" alt="Memory" onerror="this.src='https://via.placeholder.com/300x200/ff6b6b/ffffff?text=Appu+1'">
+                <p>Myyy Appuu 💋</p>
+            </div>
+            <div class="photo-card">
+                <img src="photo6.jpg" alt="Memory" onerror="this.src='https://via.placeholder.com/300x200/764ba2/ffffff?text=Appu+2'">
+                <p>Mwahhhh 😘</p>
+            </div>
+            <div class="photo-card">
+                <img src="photo7.jpg" alt="Memory" onerror="this.src='https://via.placeholder.com/300x200/667eea/ffffff?text=Appu+3'">
+                <p>Kitte cutuuu ho aap 👅</p>
+            </div>
+            <div class="photo-card">
+                <img src="photo8.jpg" alt="Memory" onerror="this.src='https://via.placeholder.com/300x200/4ca1af/ffffff?text=Appu+4'">
+                <p>Chmak Chloo 😝</p>
+            </div>
         </div>
     </div>
-</div>
+
     <!-- Page 6 - Secret Reveal -->
     <div class="page page6" id="page6">
         <div class="stars" id="stars6"></div>
@@ -204,20 +205,21 @@
         </div>
     </div>
 
-    <!-- Page 9 - Virtual Hug -->
-<div class="page page9" id="page9">
-    <div class="stars" id="stars9"></div>
-    <div class="hug-container">
-        <div class="hug-box" id="hugBox" onclick="sendHug()">
-            <span class="hug-emoji" id="hugEmoji">🤗</span>
-            <p class="hug-text" id="hugText">TAP FOR HUG</p>
+    <!-- Page 9 - Virtual Hug (WITH GIF) -->
+    <div class="page page9" id="page9">
+        <div class="stars" id="stars9"></div>
+        <div class="hug-container">
+            <div class="hug-box" id="hugBox" onclick="sendHug()">
+                <span class="hug-emoji" id="hugEmoji">🤗</span>
+                <p class="hug-text" id="hugText">TAP FOR HUG</p>
+            </div>
+            <div class="hug-gif-container" id="hugGifContainer">
+                <img src="hug.gif" alt="Hug" class="hug-gif" id="hugGif">
+            </div>
+            <button class="hug-again-btn" id="hugAgainBtn" onclick="resetHug()">Hug Again 🤗</button>
         </div>
-        <div class="hug-gif-container" id="hugGifContainer">
-            <img src="hug.gif" alt="Hug" class="hug-gif" id="hugGif">
-        </div>
-        <button class="hug-again-btn" id="hugAgainBtn" onclick="resetHug()">Hug Again 🤗</button>
     </div>
-</div>
+
     <!-- Page 10 - Balloon Release -->
     <div class="page page10" id="page10">
         <div class="stars" id="stars10"></div>
@@ -313,4 +315,4 @@
 
     <script src="script.js"></script>
 </body>
-            </html>
+        </html>
